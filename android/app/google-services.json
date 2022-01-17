@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "724651269084",
+    "project_id": "foodybuddy-51183",
+    "storage_bucket": "foodybuddy-51183.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:724651269084:android:812c1393773a068f530d19",
+        "android_client_info": {
+          "package_name": "com.example.foodybuddy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "724651269084-b6296q2mtrmmud29gf4fn153o83ss57d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBP79tad3fSKOZKY-4LTh5fGeVc4Ghcu98"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "724651269084-b6296q2mtrmmud29gf4fn153o83ss57d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
