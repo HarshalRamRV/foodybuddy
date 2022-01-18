@@ -1,8 +1,6 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:foodybuddy/Views/Homepage.dart';
-import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -27,30 +25,16 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+          image: AssetImage("assets/startPageBG.png"),
+          fit: BoxFit.cover,
+        )),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(
-              height: 200.0,
-              width: 400.0,
-              child: Lottie.asset('animations/foodanimation.json'),
-            ),
-            RichText(
-                text: TextSpan(
-                    text: 'Foody',
-                    style: TextStyle(
-                        fontSize: 56.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),
-                    children: <TextSpan>[
-                  TextSpan(
-                      text: 'Buddy',
-                      style: TextStyle(
-                          fontSize: 56.0,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.red))
-                ]))
+            Expanded(flex: 1, child: Image.asset('assets/AFoodyBuddyLogo.png')),
           ],
         ),
       ),

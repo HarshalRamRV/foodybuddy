@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:foodybuddy/Helpers/Middle.dart';
+import 'package:foodybuddy/Helpers/NavBar.dart';
+import 'package:foodybuddy/Helpers/Header.dart';
 
 class Homescreen extends StatefulWidget {
   @override
@@ -9,9 +12,21 @@ class HomescreenState extends State<Homescreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        color: Colors.red,
-      ),
-    );
+        backgroundColor: Color(0xfcfcfcfc),
+        bottomNavigationBar: NavBar().BottomNavigationBar(context),
+        body: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Header().appBar(context),
+              SizedBox(
+                height: 10.0,
+              ),
+              MiddleHelpers().textfav(),
+              MiddleHelpers().dataFav(context, 'Catogories')
+            ],
+          ),
+        ));
   }
 }

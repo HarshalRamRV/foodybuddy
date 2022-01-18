@@ -14,6 +14,7 @@ dependencies:
   cloud_firestore: ^3.1.6
   firebase_auth: ^3.3.5
   firebase_core: ^1.11.0
+  firebase_analytics: ^9.0.5
 
   cupertino_icons: ^1.0.2
   eva_icons_flutter: ^3.0.2
@@ -36,7 +37,10 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - animations/foodanimation.json
+    - assets/foodanimation.json
+    - assets/AFoodyBuddyLogo.png
+    - assets/BFoodyBuddyLogo.png
+    - assets/startPageBG.png
 
 
 dev_dependencies:

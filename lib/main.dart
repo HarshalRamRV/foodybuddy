@@ -1,26 +1,40 @@
-//import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:foodybuddy/Views/SplashScreen.dart';
+import 'package:provider/provider.dart';
+import 'package:foodybuddy/Views/Homepage.dart';
+
+import 'Helpers/Header.dart';
+import 'Helpers/NavBar.dart';
+import 'Helpers/Middle.dart';
+import 'Services/ManageData.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  //await Firebase.initializeApp();
-  runApp(const MyApp());
+  await Firebase.initializeApp();
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'FoodyBuddy',
-        theme: ThemeData(
-          primarySwatch: Colors.red,
-          primaryColor: Colors.redAccent,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        ),
-        home: SplashScreen());
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(value: Header()),
+        ChangeNotifierProvider.value(value: MiddleHelpers()),
+        ChangeNotifierProvider.value(value: ManageData()),
+        ChangeNotifierProvider.value(value: NavBar())
+      ],
+      child: MaterialApp(
+          title: 'FoodyBuddy',
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+            primaryColor: Colors.white,
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+          ),
+          home: SplashScreen()),
+    );
   }
 }
