@@ -23,8 +23,10 @@ class HomescreenState extends State<Homescreen> {
               SizedBox(
                 height: 10.0,
               ),
-              MiddleHelpers().textfav(),
-              MiddleHelpers().dataFav(context, 'Catogories')
+              MiddleHelpers().textCat(),
+              MiddleHelpers().dataCat(context, 'Catogories'),
+              MiddleHelpers().textPopular(),
+              MiddleHelpers().dataPopular(context, 'Popular Items')
             ],
           ),
         ));
