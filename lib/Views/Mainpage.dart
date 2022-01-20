@@ -41,7 +41,7 @@ class _MainscreenState extends State<Mainscreen> {
         iconSize: 26.0,
         unselectedIconTheme: IconThemeData(color: Colors.grey[350]),
         fixedColor: Color(0xffF06623),
-        unselectedLabelStyle: TextStyle(color: Colors.grey[350]),
+        unselectedLabelStyle: TextStyle(color: Colors.grey[300]),
         selectedFontSize: 12.5,
         unselectedFontSize: 12.0,
         currentIndex: currentIndex,
