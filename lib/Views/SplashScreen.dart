@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:foodybuddy/Views/Homepage.dart';
+import 'package:foodybuddy/Views/mainPage.dart';
 import 'package:page_transition/page_transition.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -16,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
         () => Navigator.pushReplacement(
             context,
             PageTransition(
-                child: Homescreen(),
+                child: Mainscreen(),
                 type: PageTransitionType.leftToRightWithFade)));
     super.initState();
   }
