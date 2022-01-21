@@ -1,8 +1,11 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:foodybuddy/Views/Homepage.dart';
 import 'package:foodybuddy/Views/Account.dart';
 import 'package:foodybuddy/Views/Notifications.dart';
 import 'package:foodybuddy/Views/Cart.dart';
+import 'package:foodybuddy/Views/Search.dart';
 
 class Mainscreen extends StatefulWidget {
   const Mainscreen({Key? key}) : super(key: key);
@@ -32,7 +35,7 @@ class _MainscreenState extends State<Mainscreen> {
           });
         },
         controller: pageController,
-        children: [Homescreen(), Cart(), Notifications(), Account()],
+        children: [Homescreen(), Cart(), Search(), Notifications(), Account()],
       ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.white,
@@ -53,6 +56,8 @@ class _MainscreenState extends State<Mainscreen> {
           ),
           BottomNavigationBarItem(
               icon: Icon(Icons.shopping_cart_sharp), title: Text('Cart')),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.search), title: Text('Search')),
           BottomNavigationBarItem(
               icon: Icon(Icons.notifications), title: Text('Notifications')),
           BottomNavigationBarItem(

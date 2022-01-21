@@ -1,8 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:foodybuddy/Services/ManageData.dart';
+import 'package:foodybuddy/Views/Detailedpage.dart';
 import 'package:lottie/lottie.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 class MiddleHelpers extends ChangeNotifier {
@@ -111,8 +114,8 @@ class MiddleHelpers extends ChangeNotifier {
   Widget dataPopular(BuildContext context, String collection) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Container(
-        height: 700.0,
+      child: ConstrainedBox(
+        constraints: BoxConstraints(maxHeight: 1000.0, minHeight: 700.0),
         child: FutureBuilder(
           future: Provider.of<ManageData>(context, listen: false)
               .fetchData(collection),
@@ -194,6 +197,43 @@ class MiddleHelpers extends ChangeNotifier {
                                               fontWeight: FontWeight.w400,
                                               color: Colors.black),
                                         )
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: [
+                                        SizedBox(
+                                          width: 200.0,
+                                        ),
+                                        Container(
+                                          decoration: BoxDecoration(
+                                              color: Color(0xffF06623),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(100.0)),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                    color: Colors.black12,
+                                                    spreadRadius: 2.0,
+                                                    blurRadius: 5.0),
+                                              ]),
+                                          child: IconButton(
+                                            color: Colors.white,
+                                            onPressed: () {
+                                              Navigator.pushReplacement(
+                                                  context,
+                                                  PageTransition(
+                                                      child: DetailedScreen(
+                                                          queryDocumentSnapshot:
+                                                              snapshot
+                                                                  .data[index]),
+                                                      type: PageTransitionType
+                                                          .topToBottom));
+                                            },
+                                            icon: Icon(Icons.add),
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ],
