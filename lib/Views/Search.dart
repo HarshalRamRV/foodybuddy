@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:foodybuddy/Services/ManageData.dart';
+import 'package:foodybuddy/Services/ManageDataSearch.dart';
 import 'package:get/get.dart';
 
 class Search extends StatefulWidget {
@@ -13,26 +14,73 @@ class Search extends StatefulWidget {
 class _SearchState extends State<Search> {
   final TextEditingController searchController = TextEditingController();
   late QuerySnapshot snapshotData;
-  late bool isExcecuted = false;
+  bool isExcecuted = false;
   @override
   Widget build(BuildContext context) {
+    Widget searchedData() {
+      return ListView.builder(
+        itemCount: snapshotData.docs.length,
+        itemBuilder: (BuildContext context, int index) {
+          return ListTile(
+            leading: CircleAvatar(
+              backgroundImage:
+                  NetworkImage(snapshotData.docs[index].data()['image']),
+            ),
+            title: Text(
+              snapshotData.docs[index].data()['name'],
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24.0),
+            ),
+          );
+        },
+      );
+    }
+
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.orange,
-        child: Icon(Icons.clear, color: Colors.white),
-        onPressed: () {},
-      ),
-      backgroundColor: Color(0xfcfcfcfc),
-      appBar: AppBar(
-        title: TextField(
-          style: TextStyle(color: Colors.orange),
-          decoration: InputDecoration(
-              hintText: 'Search Courses',
-              hintStyle: TextStyle(color: Colors.orange)),
-          controller: searchController,
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.orange,
+          child: Icon(Icons.clear, color: Colors.white),
+          onPressed: () {},
         ),
-        backgroundColor: Colors.black,
-      ),
-    );
+        backgroundColor: Color(0xfcfcfcfc),
+        appBar: AppBar(
+          actions: [
+            GetBuilder<DataController>(
+              init: DataController(),
+              builder: (val) {
+                return IconButton(
+                    icon: Icon(Icons.search),
+                    onPressed: () {
+                      val.queryData(searchController.text).then((value) {
+                        snapshotData = value;
+                        setState(() {
+                          isExcecuted = true;
+                        });
+                      });
+                    });
+              },
+            )
+          ],
+          title: TextField(
+            style: TextStyle(color: Colors.orange),
+            decoration: InputDecoration(
+                hintText: 'Search Courses',
+                hintStyle: TextStyle(color: Colors.orange)),
+            controller: searchController,
+          ),
+          backgroundColor: Colors.black,
+        ),
+        body: isExcecuted
+            ? searchedData()
+            : Container(
+                child: Center(
+                  child: Text(
+                    'Search any food',
+                    style: TextStyle(color: Colors.white, fontSize: 24),
+                  ),
+                ),
+              ));
   }
 }

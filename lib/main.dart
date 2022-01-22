@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:foodybuddy/Views/SplashScreen.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:foodybuddy/Views/Homepage.dart';
 import 'package:foodybuddy/Views/Detailedpage.dart';
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider.value(value: ManageData()),
         ChangeNotifierProvider.value(value: NavBar())
       ],
-      child: MaterialApp(
+      child: GetMaterialApp(
           routes: {
             '/home': (context) => Homescreen(),
             '/splash': (context) => SplashScreen(),
