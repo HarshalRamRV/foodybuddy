@@ -35,7 +35,7 @@ class _MainscreenState extends State<Mainscreen> {
           });
         },
         controller: pageController,
-        children: [Homescreen(), Cart(), Notifications(), Account()],
+        children: [Homescreen(), Cart(), Search(), Notifications(), Account()],
       ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.white,

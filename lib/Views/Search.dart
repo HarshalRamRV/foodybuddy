@@ -23,13 +23,12 @@ class _SearchState extends State<Search> {
         itemBuilder: (BuildContext context, int index) {
           return ListTile(
             leading: CircleAvatar(
-              backgroundImage:
-                  NetworkImage(snapshotData.docs[index].data()['image']),
+              backgroundImage: NetworkImage(snapshotData.docs[index]['image']),
             ),
             title: Text(
-              snapshotData.docs[index].data()['name'],
+              snapshotData.docs[index]['name'],
               style: TextStyle(
-                  color: Colors.white,
+                  color: Colors.black,
                   fontWeight: FontWeight.bold,
                   fontSize: 24.0),
             ),
