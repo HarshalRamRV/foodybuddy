@@ -31,7 +31,7 @@ class _SearchState extends State<Search> {
               hintStyle: TextStyle(color: Colors.orange)),
           controller: searchController,
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.black,
       ),
     );
   }
