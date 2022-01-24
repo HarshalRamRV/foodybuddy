@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:foodybuddy/Services/ManageData.dart';
 import 'package:foodybuddy/Services/ManageDataSearch.dart';
+import 'package:foodybuddy/Views/Detailedpage.dart';
 import 'package:get/get.dart';
 
 class Search extends StatefulWidget {
@@ -21,16 +22,24 @@ class _SearchState extends State<Search> {
       return ListView.builder(
         itemCount: snapshotData.docs.length,
         itemBuilder: (BuildContext context, int index) {
-          return ListTile(
-            leading: CircleAvatar(
-              backgroundImage: NetworkImage(snapshotData.docs[index]['image']),
-            ),
-            title: Text(
-              snapshotData.docs[index]['name'],
-              style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 24.0),
+          return GestureDetector(
+            onTap: () {
+              Get.to(DetailedScreen(),
+                  transition: Transition.downToUp,
+                  arguments: snapshotData.docs[index]);
+            },
+            child: ListTile(
+              leading: CircleAvatar(
+                backgroundImage:
+                    NetworkImage(snapshotData.docs[index]['image']),
+              ),
+              title: Text(
+                snapshotData.docs[index]['name'],
+                style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 24.0),
+              ),
             ),
           );
         },
@@ -41,7 +50,11 @@ class _SearchState extends State<Search> {
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.orange,
           child: Icon(Icons.clear, color: Colors.white),
-          onPressed: () {},
+          onPressed: () {
+            setState(() {
+              isExcecuted = false;
+            });
+          },
         ),
         backgroundColor: Color(0xfcfcfcfc),
         appBar: AppBar(
@@ -50,7 +63,7 @@ class _SearchState extends State<Search> {
               init: DataController(),
               builder: (val) {
                 return IconButton(
-                    icon: Icon(Icons.clear),
+                    icon: Icon(Icons.search),
                     onPressed: () {
                       val.queryData(searchController.text).then((value) {
                         snapshotData = value;
