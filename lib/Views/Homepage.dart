@@ -15,6 +15,10 @@ class HomescreenState extends State<Homescreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xfcfcfcfc),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        toolbarHeight: 0,
+      ),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -22,7 +26,7 @@ class HomescreenState extends State<Homescreen> {
           children: [
             Header().appBar(context),
             SizedBox(
-              height: 10.0,
+              height: 8.0,
             ),
             MiddleHelpers().textCat(),
             MiddleHelpers().dataCat(context, 'Catogories'),

@@ -111,11 +111,11 @@ class MiddleHelpers extends ChangeNotifier {
     );
   }
 
-  Widget dataPopular(BuildContext context, String collection) {
+  Widget dataCartTest(BuildContext context, String collection) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ConstrainedBox(
-        constraints: BoxConstraints(maxHeight: 1000.0, minHeight: 700.0),
+        constraints: BoxConstraints(maxHeight: 270.0, minHeight: 100.0),
         child: FutureBuilder(
           future: Provider.of<ManageData>(context, listen: false)
               .fetchData(collection),
@@ -146,101 +146,270 @@ class MiddleHelpers extends ChangeNotifier {
                       margin:
                           EdgeInsets.symmetric(horizontal: 0.0, vertical: 5.0),
                       child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              child: SizedBox(
-                                child: Image.network(
-                                  snapshot.data[index].data()['image'],
-                                  width: 125.0,
-                                  height: 125.0,
-                                  fit: BoxFit.cover,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Column(
+                            children: [
+                              Container(
+                                child: SizedBox(
+                                  child: Image.network(
+                                    snapshot.data[index].data()['image'],
+                                    width: 125.0,
+                                    height: 125.0,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
-                            ),
-                            Container(
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    8.0, 15.0, 8.0, 8.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      snapshot.data[index].data()['name'],
-                                      textAlign: TextAlign.left,
-                                      style: TextStyle(
-                                          fontSize: 18.0,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black),
-                                    ),
-                                    Text(
-                                      snapshot.data[index].data()['category'],
-                                      textAlign: TextAlign.right,
-                                      style: TextStyle(
-                                          fontSize: 18.0,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black),
-                                    ),
-                                    Row(
-                                      children: [
-                                        Icon(
-                                          FontAwesomeIcons.rupeeSign,
-                                          size: 14.0,
-                                        ),
-                                        Text(
-                                          snapshot.data[index]
-                                              .data()['price']
-                                              .toString(),
-                                          style: TextStyle(
-                                              fontSize: 20.0,
-                                              fontWeight: FontWeight.w400,
-                                              color: Colors.black),
-                                        )
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      children: [
-                                        SizedBox(
-                                          width: 200.0,
-                                        ),
-                                        Container(
-                                          decoration: BoxDecoration(
-                                              color: Color(0xffF06623),
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(100.0)),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                    color: Colors.black12,
-                                                    spreadRadius: 2.0,
-                                                    blurRadius: 5.0),
-                                              ]),
-                                          child: IconButton(
-                                            color: Colors.white,
-                                            onPressed: () {
-                                              Navigator.pushReplacement(
-                                                  context,
-                                                  PageTransition(
-                                                      child: DetailedScreen(
-                                                          queryDocumentSnapshot:
-                                                              snapshot
-                                                                  .data[index]),
-                                                      type: PageTransitionType
-                                                          .topToBottom));
-                                            },
-                                            icon: Icon(Icons.add),
+                            ],
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: 215.0,
+                                child: Padding(
+                                  padding: const EdgeInsets.fromLTRB(
+                                      8.0, 8.0, 8.0, 8.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        snapshot.data[index].data()['name'],
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                            fontSize: 18.0,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black),
+                                      ),
+                                      Text(
+                                        snapshot.data[index].data()['category'],
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                            fontSize: 18.0,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.grey),
+                                      ),
+                                      SizedBox(
+                                        height: 10.0,
+                                      ),
+                                      Row(
+                                        children: [
+                                          Icon(
+                                            FontAwesomeIcons.rupeeSign,
+                                            size: 14.0,
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                                          Text(
+                                            snapshot.data[index]
+                                                .data()['price']
+                                                .toString(),
+                                            style: TextStyle(
+                                                fontSize: 20.0,
+                                                fontWeight: FontWeight.w400,
+                                                color: Colors.black),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
+                            ],
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              SizedBox(
+                                height: 65.0,
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                    color: Color(0xffF06623),
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(100.0)),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: Colors.black12,
+                                          spreadRadius: 2.0,
+                                          blurRadius: 5.0),
+                                    ]),
+                                child: IconButton(
+                                  color: Colors.white,
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        PageTransition(
+                                            child: DetailedScreen(
+                                                queryDocumentSnapshot:
+                                                    snapshot.data[index]),
+                                            type: PageTransitionType.fade));
+                                  },
+                                  icon: Icon(Icons.add),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              );
+            }
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget dataPopular(BuildContext context, String collection) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ConstrainedBox(
+        constraints: BoxConstraints(maxHeight: 1000.0, minHeight: 660.0),
+        child: FutureBuilder(
+          future: Provider.of<ManageData>(context, listen: false)
+              .fetchData(collection),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: Lottie.asset('assets/foodanimation.json'),
+              );
+            } else {
+              return ListView.builder(
+                padding: EdgeInsets.zero,
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: snapshot.data.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(0.0)),
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.black12,
+                                spreadRadius: 2.0,
+                                blurRadius: 5.0),
                           ]),
+                      margin:
+                          EdgeInsets.symmetric(horizontal: 0.0, vertical: 5.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Column(
+                            children: [
+                              Container(
+                                child: SizedBox(
+                                  child: Image.network(
+                                    snapshot.data[index].data()['image'],
+                                    width: 125.0,
+                                    height: 125.0,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: 215.0,
+                                child: Padding(
+                                  padding: const EdgeInsets.fromLTRB(
+                                      8.0, 8.0, 8.0, 8.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        snapshot.data[index].data()['name'],
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                            fontSize: 18.0,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black),
+                                      ),
+                                      Text(
+                                        snapshot.data[index].data()['category'],
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                            fontSize: 18.0,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.grey),
+                                      ),
+                                      SizedBox(
+                                        height: 10.0,
+                                      ),
+                                      Row(
+                                        children: [
+                                          Icon(
+                                            FontAwesomeIcons.rupeeSign,
+                                            size: 14.0,
+                                          ),
+                                          Text(
+                                            snapshot.data[index]
+                                                .data()['price']
+                                                .toString(),
+                                            style: TextStyle(
+                                                fontSize: 20.0,
+                                                fontWeight: FontWeight.w400,
+                                                color: Colors.black),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              SizedBox(
+                                height: 65.0,
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                    color: Color(0xffF06623),
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(100.0)),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: Colors.black12,
+                                          spreadRadius: 2.0,
+                                          blurRadius: 5.0),
+                                    ]),
+                                child: IconButton(
+                                  color: Colors.white,
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        PageTransition(
+                                            child: DetailedScreen(
+                                                queryDocumentSnapshot:
+                                                    snapshot.data[index]),
+                                            type: PageTransitionType.fade));
+                                  },
+                                  icon: Icon(Icons.add),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 },
