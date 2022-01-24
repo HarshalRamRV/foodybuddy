@@ -10,9 +10,6 @@ class Header extends ChangeNotifier {
       color: Colors.white,
       child: Column(
         children: [
-          SizedBox(
-            height: 15.0,
-          ),
           Image.asset(
             'assets/BFoodyBuddyLogo.png',
           ),

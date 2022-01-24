@@ -8,6 +8,7 @@ import 'package:foodybuddy/Views/Cart.dart';
 import 'package:foodybuddy/Views/Search.dart';
 
 class Mainscreen extends StatefulWidget {
+  
   const Mainscreen({Key? key}) : super(key: key);
 
   @override
