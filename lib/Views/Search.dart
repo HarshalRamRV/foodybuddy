@@ -50,7 +50,7 @@ class _SearchState extends State<Search> {
               init: DataController(),
               builder: (val) {
                 return IconButton(
-                    icon: Icon(Icons.search),
+                    icon: Icon(Icons.clear),
                     onPressed: () {
                       val.queryData(searchController.text).then((value) {
                         snapshotData = value;
