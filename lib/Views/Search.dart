@@ -24,28 +24,70 @@ class _SearchState extends State<Search> {
         itemCount: snapshotData.docs.length,
         itemBuilder: (BuildContext context, int index) {
           return GestureDetector(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  PageTransition(
-                      child: DetailedScreen(
-                          queryDocumentSnapshot: snapshotData.docs[index]),
-                      type: PageTransitionType.fade));
-            },
-            child: ListTile(
-              leading: CircleAvatar(
-                backgroundImage:
-                    NetworkImage(snapshotData.docs[index]['image']),
-              ),
-              title: Text(
-                snapshotData.docs[index]['name'],
-                style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 24.0),
-              ),
-            ),
-          );
+              onTap: () {
+                Navigator.push(
+                    context,
+                    PageTransition(
+                        child: DetailedScreen(
+                            queryDocumentSnapshot: snapshotData.docs[index]),
+                        type: PageTransitionType.fade));
+              },
+              child: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(Radius.circular(0.0)),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black12,
+                            spreadRadius: 2.0,
+                            blurRadius: 5.0),
+                      ]),
+                  margin: EdgeInsets.symmetric(horizontal: 0.0, vertical: 5.0),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Column(
+                          children: [
+                            Container(
+                              child: SizedBox(
+                                child: Image.network(
+                                  (snapshotData.docs[index]['image']),
+                                  width: 125.0,
+                                  height: 125.0,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                  width: 215.0,
+                                  child: Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          8.0, 8.0, 8.0, 8.0),
+                                      child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              (snapshotData.docs[index]
+                                                  ['name']),
+                                              textAlign: TextAlign.left,
+                                              style: TextStyle(
+                                                  fontSize: 18.0,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.black),
+                                            ),
+                                          ])))
+                            ])
+                      ])));
         },
       );
     }
@@ -67,7 +109,10 @@ class _SearchState extends State<Search> {
               init: DataController(),
               builder: (val) {
                 return IconButton(
-                    icon: Icon(Icons.search),
+                    icon: Icon(
+                      Icons.search,
+                      color: Colors.orange,
+                    ),
                     onPressed: () {
                       val.queryData(searchController.text).then((value) {
                         snapshotData = value;
@@ -86,7 +131,7 @@ class _SearchState extends State<Search> {
                 hintStyle: TextStyle(color: Colors.orange)),
             controller: searchController,
           ),
-          backgroundColor: Colors.black,
+          backgroundColor: Colors.white,
         ),
         body: isExcecuted
             ? searchedData()
