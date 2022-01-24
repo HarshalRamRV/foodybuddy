@@ -4,6 +4,7 @@ import 'package:foodybuddy/Services/ManageData.dart';
 import 'package:foodybuddy/Services/ManageDataSearch.dart';
 import 'package:foodybuddy/Views/Detailedpage.dart';
 import 'package:get/get.dart';
+import 'package:page_transition/page_transition.dart';
 
 class Search extends StatefulWidget {
   const Search({Key? key}) : super(key: key);
@@ -24,9 +25,12 @@ class _SearchState extends State<Search> {
         itemBuilder: (BuildContext context, int index) {
           return GestureDetector(
             onTap: () {
-              Get.to(DetailedScreen(),
-                  transition: Transition.downToUp,
-                  arguments: snapshotData.docs[index]);
+              Navigator.push(
+                  context,
+                  PageTransition(
+                      child: DetailedScreen(
+                          queryDocumentSnapshot: snapshotData.docs[index]),
+                      type: PageTransitionType.fade));
             },
             child: ListTile(
               leading: CircleAvatar(
