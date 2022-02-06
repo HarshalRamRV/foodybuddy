@@ -1,8 +1,12 @@
 import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:foodybuddy/Providers/auth_provider.dart';
 import 'package:foodybuddy/Views/Homepage.dart';
+import 'package:foodybuddy/Views/auth_screen.dart';
 import 'package:foodybuddy/Views/mainPage.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -17,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
         () => Navigator.pushReplacement(
             context,
             PageTransition(
-                child: Mainscreen(),
+                child: AuthScreen(),
                 type: PageTransitionType.leftToRightWithFade)));
     super.initState();
   }

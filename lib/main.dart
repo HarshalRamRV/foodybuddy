@@ -1,6 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:foodybuddy/Providers/auth_provider.dart';
+import 'package:foodybuddy/Views/Mainpage.dart';
 import 'package:foodybuddy/Views/SplashScreen.dart';
+import 'package:foodybuddy/Views/auth_screen.dart';
+import 'package:foodybuddy/Views/verify_screen.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:foodybuddy/Views/Homepage.dart';
@@ -12,6 +18,7 @@ import 'Services/ManageData.dart';
 import 'Views/Detailedpage.dart';
 
 void main() async {
+  
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
       // options: FirebaseOptions(
@@ -36,19 +43,21 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider.value(value: Header()),
         ChangeNotifierProvider.value(value: MiddleHelpers()),
         ChangeNotifierProvider.value(value: ManageData()),
-        ChangeNotifierProvider.value(value: NavBar())
+        ChangeNotifierProvider.value(value: NavBar()),
+        ChangeNotifierProvider.value(value: AuthProvider()),
       ],
       child: GetMaterialApp(
-          routes: {
-            '/home': (context) => Homescreen(),
-            '/splash': (context) => SplashScreen(),
-          },
-          title: 'FoodyBuddy',
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            visualDensity: VisualDensity.adaptivePlatformDensity,
-          ),
-          home: SplashScreen()),
+        title: 'FoodyBuddy',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home: SplashScreen(),
+        routes: {
+          VerifyScreen.routeArgs: (ctx) => VerifyScreen(),
+          Mainscreen.routeArgs: (ctx) => Mainscreen(),
+        },
+      ),
     );
   }
 }
