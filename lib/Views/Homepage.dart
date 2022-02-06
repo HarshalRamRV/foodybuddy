@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:foodybuddy/Helpers/Middle.dart';
 import 'package:foodybuddy/Helpers/NavBar.dart';
 import 'package:foodybuddy/Helpers/Header.dart';
@@ -16,8 +17,11 @@ class HomescreenState extends State<Homescreen> {
     return Scaffold(
       backgroundColor: Color(0xfcfcfcfc),
       appBar: AppBar(
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
         backgroundColor: Colors.white,
         toolbarHeight: 0,
+        brightness: Brightness.dark,
+        elevation: 0,
       ),
       body: SingleChildScrollView(
         child: Column(
