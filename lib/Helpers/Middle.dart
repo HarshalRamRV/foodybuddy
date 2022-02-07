@@ -287,7 +287,14 @@ class MiddleHelpers extends ChangeNotifier {
                 itemCount: snapshot.data.length,
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          PageTransition(
+                              child: DetailedScreen(
+                                  queryDocumentSnapshot: snapshot.data[index]),
+                              type: PageTransitionType.fade));
+                    },
                     child: Container(
                       decoration: BoxDecoration(
                           color: Colors.white,
@@ -370,40 +377,6 @@ class MiddleHelpers extends ChangeNotifier {
                                       ),
                                     ],
                                   ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              SizedBox(
-                                height: 65.0,
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                    color: Color(0xffF06623),
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(100.0)),
-                                    boxShadow: [
-                                      BoxShadow(
-                                          color: Colors.black12,
-                                          spreadRadius: 2.0,
-                                          blurRadius: 5.0),
-                                    ]),
-                                child: IconButton(
-                                  color: Colors.white,
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        PageTransition(
-                                            child: DetailedScreen(
-                                                queryDocumentSnapshot:
-                                                    snapshot.data[index]),
-                                            type: PageTransitionType.fade));
-                                  },
-                                  icon: Icon(Icons.add),
                                 ),
                               ),
                             ],

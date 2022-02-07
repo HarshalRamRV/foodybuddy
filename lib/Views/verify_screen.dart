@@ -4,7 +4,6 @@ import 'package:foodybuddy/Providers/auth_provider.dart';
 import 'package:foodybuddy/Views/Mainpage.dart';
 import 'package:foodybuddy/widgets/rounded_button.dart';
 import 'package:foodybuddy/widgets/user_text_field.dart';
-
 import 'package:provider/provider.dart';
 
 class VerifyScreen extends StatelessWidget {

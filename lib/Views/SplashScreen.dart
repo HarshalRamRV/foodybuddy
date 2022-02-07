@@ -3,8 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foodybuddy/Providers/auth_provider.dart';
 import 'package:foodybuddy/Views/Homepage.dart';
+import 'package:foodybuddy/Views/Mainpage.dart';
 import 'package:foodybuddy/Views/auth_screen.dart';
-import 'package:foodybuddy/Views/mainPage.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
@@ -21,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
         () => Navigator.pushReplacement(
             context,
             PageTransition(
-                child: AuthScreen(),
+                child: Authenticate(),
                 type: PageTransitionType.leftToRightWithFade)));
     super.initState();
   }
@@ -44,5 +44,16 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
       ),
     );
+  }
+}
+
+class Authenticate extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final firebaseUser = context.watch<User?>();
+    if (firebaseUser != null) {
+            return Mainscreen();
+    }
+    return AuthScreen();
   }
 }

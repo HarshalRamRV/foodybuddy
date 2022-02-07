@@ -18,7 +18,6 @@ import 'Services/ManageData.dart';
 import 'Views/Detailedpage.dart';
 
 void main() async {
-  
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
       // options: FirebaseOptions(

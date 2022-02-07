@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, must_be_immutable
 
 import 'package:country_code_picker/country_code.dart';
 import 'package:country_code_picker/country_code_picker.dart';
@@ -71,15 +71,8 @@ class AuthScreen extends StatelessWidget {
     }
   }
 
-  void _onCountryChange(CountryCode countryCode) {
-    selectedCountryCode = countryCode.toString();
-    print("New Country selected: " + countryCode.toString());
-  }
-
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
