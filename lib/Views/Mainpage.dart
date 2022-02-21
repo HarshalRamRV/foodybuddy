@@ -5,8 +5,6 @@ import 'package:foodybuddy/Navigation/tab_navigator.dart';
 
 class Mainscreen extends StatefulWidget {
   static const routeArgs = '/main-screen';
-  const Mainscreen({Key? key}) : super(key: key);
-
   @override
   _MainscreenState createState() => _MainscreenState();
 }

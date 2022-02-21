@@ -1,5 +1,8 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:foodybuddy/Views/auth_screen.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Account extends StatefulWidget {
   const Account({Key? key}) : super(key: key);
@@ -98,14 +101,27 @@ class _AccountState extends State<Account> {
                 style: TextStyle(color: Colors.black, fontSize: 20.0),
               ),
             ),
-            ListTile(
-              trailing: Icon(
-                Icons.arrow_forward_ios,
-                color: Colors.black,
-              ),
-              title: Text(
-                'Dark mode',
-                style: TextStyle(color: Colors.black, fontSize: 20.0),
+            GestureDetector(
+              onTap: () async {
+                SharedPreferences sharedPreferences =
+                    await SharedPreferences.getInstance();
+                sharedPreferences.remove('uid');
+                Navigator.pushReplacement(
+                    context,
+                    PageTransition(
+                        child: AuthScreen(),
+                        type: PageTransitionType.leftToRightWithFade));
+              },
+              
+              child: ListTile(
+                trailing: Icon(
+                  Icons.logout,
+                  color: Colors.black,
+                ),
+                title: Text(
+                  'Log out',
+                  style: TextStyle(color: Colors.black, fontSize: 20.0),
+                ),
               ),
             ),
             Text(

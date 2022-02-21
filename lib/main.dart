@@ -29,12 +29,12 @@ void main() async {
       //     appId: "1:724651269084:web:42cd9aa100ae14b5530d19" // Your projectId
       //     ),
       );
-
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -47,7 +47,6 @@ class MyApp extends StatelessWidget {
       ],
       child: GetMaterialApp(
         title: 'FoodyBuddy',
-        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
@@ -55,6 +54,7 @@ class MyApp extends StatelessWidget {
         routes: {
           VerifyScreen.routeArgs: (ctx) => VerifyScreen(),
           Mainscreen.routeArgs: (ctx) => Mainscreen(),
+          AuthScreen.routeArgs: (ctx) => AuthScreen()
         },
       ),
     );

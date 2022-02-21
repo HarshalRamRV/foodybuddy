@@ -46,6 +46,7 @@ android {
         applicationId "com.example.foodybuddy"
         minSdkVersion 21
         targetSdkVersion 28
+        multiDexEnabled true 
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
@@ -68,6 +69,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "androidx.browser:browser:1.4.0"
     implementation 'com.google.android.gms:play-services-safetynet:18.0.1'
+    implementation "com.android.support:multidex:1.0.3"
 }
 
 apply plugin: 'com.google.gms.google-services'

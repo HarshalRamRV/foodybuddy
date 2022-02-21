@@ -1,13 +1,16 @@
 import 'package:flutter/foundation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthProvider with ChangeNotifier {
   final _firebaseAuth = FirebaseAuth.instance;
   late String verificationId;
+  late String uid;
+  String get getUid => uid;
 
   Future<void> verifyPhone(String countryCode, String mobile) async {
     var mobileToSend = mobile;
-    final PhoneCodeSent smsOTPSent = (String verId, [ int? forceCodeResend]) {
+    final PhoneCodeSent smsOTPSent = (String verId, [int? forceCodeResend]) {
       this.verificationId = verId;
     };
     try {
@@ -25,7 +28,7 @@ class AuthProvider with ChangeNotifier {
           verificationCompleted: (AuthCredential phoneAuthCredential) {
             print(phoneAuthCredential);
           },
-          verificationFailed: (FirebaseAuthException  exceptio) {
+          verificationFailed: (FirebaseAuthException exceptio) {
             throw exceptio;
           });
     } catch (e) {
@@ -43,9 +46,14 @@ class AuthProvider with ChangeNotifier {
           await _firebaseAuth.signInWithCredential(credential);
       final User? currentUser = _firebaseAuth.currentUser;
       print(user);
+      uid = currentUser!.uid;
+      SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
+      sharedPreferences.setString('uid', uid);
+      notifyListeners();
 
-      if (currentUser?.uid != "") {
-        print(currentUser?.uid);
+      if (currentUser.uid != "") {
+        print(currentUser.uid);
       }
     } catch (e) {
       throw e;

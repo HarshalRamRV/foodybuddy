@@ -23,7 +23,8 @@ class TabNavigator extends StatelessWidget {
       child = Search();
     else if (tabItem == "Page3")
       child = Notifications();
-    else if (tabItem == "Page4") child = Account();
+    else if (tabItem == "Page4") 
+      child = Account();
 
     return Navigator(
       key: navigatorKey,

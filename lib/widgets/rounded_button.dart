@@ -30,20 +30,3 @@ class RoundedButton extends StatelessWidget {
     );
   }
 }
-
-// RaisedButton(
-//         elevation: 3,
-//         shape: RoundedRectangleBorder(
-//           borderRadius: BorderRadius.circular(10),
-//         ),
-//         onPressed: onPressed,
-//         child: Text(
-//           title,
-//           style: Theme.of(context)
-//               .textTheme
-//               .headline6
-//               ?.copyWith(color: Colors.white, fontSize: 14),
-//         ),
-//         color: Theme.of(context).primaryColor,
-//         splashColor: Colors.green,
-//       ),

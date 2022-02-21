@@ -12,6 +12,7 @@ import '../Providers/auth_provider.dart';
 import 'package:provider/provider.dart';
 
 class AuthScreen extends StatelessWidget {
+  static const routeArgs = '/auth-screen';
   final controller = TextEditingController();
 
   String selectedCountryCode = '+91';

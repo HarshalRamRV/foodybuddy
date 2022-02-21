@@ -7,6 +7,9 @@ import 'package:foodybuddy/Views/Mainpage.dart';
 import 'package:foodybuddy/Views/auth_screen.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+String? userUid;
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -14,16 +17,25 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  Future getUid() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    userUid = sharedPreferences.getString('uid');
+    print(userUid);
+  }
+
   @override
   void initState() {
-    Timer(
-        Duration(seconds: 3),
-        () => Navigator.pushReplacement(
-            context,
-            PageTransition(
-                child: Authenticate(),
-                type: PageTransitionType.leftToRightWithFade)));
-    super.initState();
+    getUid().whenComplete(() {
+      Timer(
+          Duration(seconds: 3),
+          () => Navigator.pushReplacement(
+              context,
+              PageTransition(
+                  child: userUid == null ? AuthScreen() : Mainscreen(),
+                  type: PageTransitionType.leftToRightWithFade)));
+
+    });
+          super.initState();
   }
 
   @override
@@ -44,16 +56,5 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
       ),
     );
-  }
-}
-
-class Authenticate extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final firebaseUser = context.watch<User?>();
-    if (firebaseUser != null) {
-            return Mainscreen();
-    }
-    return AuthScreen();
   }
 }
