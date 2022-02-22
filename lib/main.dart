@@ -29,6 +29,9 @@ void main() async {
       //     appId: "1:724651269084:web:42cd9aa100ae14b5530d19" // Your projectId
       //     ),
       );
+  // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+  //     statusBarBrightness: Brightness.light,
+  //     statusBarIconBrightness: Brightness.dark));
   runApp(MyApp());
 }
 
@@ -47,6 +50,7 @@ class MyApp extends StatelessWidget {
       ],
       child: GetMaterialApp(
         title: 'FoodyBuddy',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),

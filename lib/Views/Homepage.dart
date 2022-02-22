@@ -7,7 +7,6 @@ import 'package:foodybuddy/Helpers/NavBar.dart';
 import 'package:foodybuddy/Helpers/Header.dart';
 
 class Homescreen extends StatefulWidget {
-
   @override
   HomescreenState createState() => HomescreenState();
 }
@@ -19,7 +18,7 @@ class HomescreenState extends State<Homescreen> {
       backgroundColor: Color(0xfcfcfcfc),
       appBar: AppBar(
         systemOverlayStyle: SystemUiOverlayStyle.dark,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.black,
         toolbarHeight: 0,
         brightness: Brightness.dark,
         elevation: 0,
