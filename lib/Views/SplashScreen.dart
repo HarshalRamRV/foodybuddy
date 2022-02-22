@@ -1,12 +1,8 @@
 import 'dart:async';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:foodybuddy/Providers/auth_provider.dart';
-import 'package:foodybuddy/Views/Homepage.dart';
 import 'package:foodybuddy/Views/Mainpage.dart';
 import 'package:foodybuddy/Views/auth_screen.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 String? userUid;

@@ -1,11 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:foodybuddy/Helpers/Middle.dart';
 import 'package:foodybuddy/Views/Cart.dart';
-import 'package:foodybuddy/Views/Mainpage.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:foodybuddy/Views/Homepage.dart';
 
 class DetailedScreen extends StatefulWidget {
   final QueryDocumentSnapshot queryDocumentSnapshot;

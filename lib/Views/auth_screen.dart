@@ -1,10 +1,6 @@
 // ignore_for_file: deprecated_member_use, must_be_immutable
 
-import 'package:country_code_picker/country_code.dart';
-import 'package:country_code_picker/country_code_picker.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:foodybuddy/Views/verify_screen.dart';
 import '../widgets/user_text_field.dart';
 import '../widgets/rounded_button.dart';

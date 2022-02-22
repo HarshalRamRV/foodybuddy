@@ -1,7 +1,8 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:foodybuddy/Providers/auth_provider.dart';
-import 'package:foodybuddy/Views/Homepage.dart';
 import 'package:foodybuddy/Views/Mainpage.dart';
 import 'package:foodybuddy/widgets/rounded_button.dart';
 import 'package:foodybuddy/widgets/user_text_field.dart';
@@ -95,7 +96,7 @@ class VerifyScreen extends StatelessWidget {
                   titleLabel: 'Enter 6 digit Code',
                   maxLength: 6,
                   controller: controller,
-                  inputType: TextInputType.phone,
+                  inputType: TextInputType.phone, icon: null,
                 ),
                 SizedBox(
                   height: 40.0,

@@ -1,7 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:foodybuddy/Providers/auth_provider.dart';
 import 'package:foodybuddy/Views/Mainpage.dart';
 import 'package:foodybuddy/Views/SplashScreen.dart';
@@ -9,13 +7,10 @@ import 'package:foodybuddy/Views/auth_screen.dart';
 import 'package:foodybuddy/Views/verify_screen.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:foodybuddy/Views/Homepage.dart';
-import 'package:foodybuddy/Views/Detailedpage.dart';
 import 'Helpers/Header.dart';
 import 'Helpers/NavBar.dart';
 import 'Helpers/Middle.dart';
 import 'Services/ManageData.dart';
-import 'Views/Detailedpage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

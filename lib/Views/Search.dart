@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:foodybuddy/Services/ManageData.dart';
 import 'package:foodybuddy/Services/ManageDataSearch.dart';
 import 'package:foodybuddy/Views/Detailedpage.dart';
 import 'package:get/get.dart';

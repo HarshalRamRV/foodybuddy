@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:foodybuddy/Helpers/Middle.dart';
-import 'package:foodybuddy/Helpers/NavBar.dart';
 import 'package:foodybuddy/Helpers/Header.dart';
 
 class Homescreen extends StatefulWidget {
