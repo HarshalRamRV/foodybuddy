@@ -1,5 +1,6 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:foodybuddy/Views/auth_screen.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -106,13 +107,8 @@ class _AccountState extends State<Account> {
                 SharedPreferences sharedPreferences =
                     await SharedPreferences.getInstance();
                 sharedPreferences.remove('uid');
-                Navigator.pushReplacement(
-                    context,
-                    PageTransition(
-                        child: AuthScreen(),
-                        type: PageTransitionType.leftToRightWithFade));
+                        Navigator.of(context, rootNavigator: true).pushReplacementNamed(AuthScreen.routeArgs);     
               },
-              
               child: ListTile(
                 trailing: Icon(
                   Icons.logout,
