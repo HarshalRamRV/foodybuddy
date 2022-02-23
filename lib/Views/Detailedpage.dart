@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:foodybuddy/Providers/Calculations.dart';
 import 'package:foodybuddy/Views/Cart.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
 
 class DetailedScreen extends StatefulWidget {
   final QueryDocumentSnapshot queryDocumentSnapshot;
@@ -102,23 +104,45 @@ class _DetailedScreenState extends State<DetailedScreen> {
 
   Widget floatinActionButton() {
     return Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-      ElevatedButton(
-        style: ButtonStyle(
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8.0),
-            )),
-            backgroundColor: MaterialStateProperty.all(Color(0xFFF06623)),
-            padding: MaterialStateProperty.all(
-                EdgeInsets.symmetric(horizontal: 100.0, vertical: 15.0)),
-            textStyle: MaterialStateProperty.all(TextStyle(fontSize: 30))),
-        onPressed: () {},
-        child: Text(
-          "Add to cart",
-          style: TextStyle(
-              fontSize: 20.0, color: Colors.white, fontWeight: FontWeight.w700),
+      FloatingActionButton(
+          child: Icon(Icons.remove),
+          backgroundColor: Color(0xFFF06623),
+          onPressed: () {
+            Provider.of<Calculations>(context, listen: false)
+                .removeFromCart(context, {
+              'image': widget.queryDocumentSnapshot['image'],
+              'name': widget.queryDocumentSnapshot['name'],
+              'price': widget.queryDocumentSnapshot['price'],
+              'category': widget.queryDocumentSnapshot['category'],
+            });
+          }),
+      Card(
+        elevation: 3.0,
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Text(
+            Provider.of<Calculations>(context, listen: false)
+                .getCartData
+                .toString(),
+            style: TextStyle(
+                fontSize: 20.0,
+                color: Colors.black,
+                fontWeight: FontWeight.w700),
+          ),
         ),
       ),
+      FloatingActionButton(
+          child: Icon(Icons.add),
+          backgroundColor: Color(0xFFF06623),
+          onPressed: () {
+            Provider.of<Calculations>(context, listen: false)
+                .addToCart(context, {
+              'image': widget.queryDocumentSnapshot['image'],
+              'name': widget.queryDocumentSnapshot['name'],
+              'price': widget.queryDocumentSnapshot['price'],
+              'category': widget.queryDocumentSnapshot['category'],
+            });
+          }),
       Stack(children: [
         FloatingActionButton(
           backgroundColor: Color(0xFFF06623),

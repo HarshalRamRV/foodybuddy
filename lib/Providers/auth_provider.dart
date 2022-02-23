@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:flutter/foundation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -5,8 +7,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AuthProvider with ChangeNotifier {
   final _firebaseAuth = FirebaseAuth.instance;
   late String verificationId;
-  late String uid;
-  String get getUid => uid;
+  late String? uid;
+  String? get getUid => uid;
 
   Future<void> verifyPhone(String countryCode, String mobile) async {
     var mobileToSend = mobile;
@@ -45,16 +47,15 @@ class AuthProvider with ChangeNotifier {
       final UserCredential user =
           await _firebaseAuth.signInWithCredential(credential);
       final User? currentUser = _firebaseAuth.currentUser;
-      print(user);
-      uid = currentUser!.uid;
-      SharedPreferences sharedPreferences =
-          await SharedPreferences.getInstance();
-      sharedPreferences.setString('uid', uid);
-      notifyListeners();
 
-      if (currentUser.uid != "") {
+      if (currentUser!.uid != "") {
         print(currentUser.uid);
       }
+      uid = currentUser.uid;
+      SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
+      sharedPreferences.setString('uid', uid!);
+      notifyListeners();
     } catch (e) {
       throw e;
     }

@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:foodybuddy/Providers/Calculations.dart';
 import 'package:foodybuddy/Providers/auth_provider.dart';
 import 'package:foodybuddy/Views/Mainpage.dart';
 import 'package:foodybuddy/Views/SplashScreen.dart';
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider.value(value: Calculations()),
         ChangeNotifierProvider.value(value: Header()),
         ChangeNotifierProvider.value(value: MiddleHelpers()),
         ChangeNotifierProvider.value(value: ManageData()),
