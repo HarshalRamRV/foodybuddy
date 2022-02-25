@@ -18,6 +18,9 @@ class _DetailedScreenState extends State<DetailedScreen> {
   int totalItems = 0;
   @override
   Widget build(BuildContext context) {
+    print(
+      Provider.of<Calculations>(context, listen: false).getCartData.toString(),
+    );
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: floatinActionButton(),
@@ -121,8 +124,8 @@ class _DetailedScreenState extends State<DetailedScreen> {
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: Text(
-            Provider.of<Calculations>(context, listen: false)
-                .getCartData
+            Provider.of<Calculations>(context, listen: true)
+                .getItemQuant
                 .toString(),
             style: TextStyle(
                 fontSize: 20.0,
@@ -141,6 +144,8 @@ class _DetailedScreenState extends State<DetailedScreen> {
               'name': widget.queryDocumentSnapshot['name'],
               'price': widget.queryDocumentSnapshot['price'],
               'category': widget.queryDocumentSnapshot['category'],
+              'quantity': Provider.of<Calculations>(context, listen: false)
+                  .getItemQuant,
             });
           }),
       Stack(children: [
@@ -162,7 +167,9 @@ class _DetailedScreenState extends State<DetailedScreen> {
             radius: 10.0,
             backgroundColor: Colors.deepOrange[900],
             child: Text(
-              '$totalItems',
+              Provider.of<Calculations>(context, listen: false)
+                  .getCartData
+                  .toString(),
               style: TextStyle(color: Colors.white),
             ),
           ),
