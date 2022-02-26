@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AuthProvider with ChangeNotifier {
   final _firebaseAuth = FirebaseAuth.instance;
   late String verificationId;
-  late String? uid;
+  String? uid;
   String? get getUid => uid;
 
   Future<void> verifyPhone(String countryCode, String mobile) async {

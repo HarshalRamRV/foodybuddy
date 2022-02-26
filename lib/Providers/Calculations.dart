@@ -28,7 +28,9 @@ class Calculations with ChangeNotifier {
   }
 
   removeFromCart(BuildContext context, dynamic data1) async {
-    cartData--;
+    if (cartData != 0) {
+      cartData--;
+    }
     await Provider.of<ManageData>(context, listen: false)
         .deleteData(context, data1);
     notifyListeners();

@@ -111,6 +111,7 @@ class _DetailedScreenState extends State<DetailedScreen> {
           child: Icon(Icons.remove),
           backgroundColor: Color(0xFFF06623),
           onPressed: () {
+            Provider.of<Calculations>(context, listen: false).minusItemQuant();
             Provider.of<Calculations>(context, listen: false)
                 .removeFromCart(context, {
               'image': widget.queryDocumentSnapshot['image'],
@@ -124,9 +125,10 @@ class _DetailedScreenState extends State<DetailedScreen> {
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: Text(
-            Provider.of<Calculations>(context, listen: true)
-                .getItemQuant
-                .toString(),
+            "0",
+            // widget.queryDocumentSnapshot['quantity'].toString() == ""
+            // ? '0'
+            // : widget.queryDocumentSnapshot['quantity'].toString(),
             style: TextStyle(
                 fontSize: 20.0,
                 color: Colors.black,
@@ -138,6 +140,7 @@ class _DetailedScreenState extends State<DetailedScreen> {
           child: Icon(Icons.add),
           backgroundColor: Color(0xFFF06623),
           onPressed: () {
+            Provider.of<Calculations>(context, listen: false).addItemQuant();
             Provider.of<Calculations>(context, listen: false)
                 .addToCart(context, {
               'image': widget.queryDocumentSnapshot['image'],
@@ -167,7 +170,7 @@ class _DetailedScreenState extends State<DetailedScreen> {
             radius: 10.0,
             backgroundColor: Colors.deepOrange[900],
             child: Text(
-              Provider.of<Calculations>(context, listen: false)
+              Provider.of<Calculations>(context, listen: true)
                   .getCartData
                   .toString(),
               style: TextStyle(color: Colors.white),
