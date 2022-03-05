@@ -34,7 +34,7 @@ class HomescreenState extends State<Homescreen> {
             MiddleHelpers().textCat(),
             MiddleHelpers().dataCat(context, 'Catogories'),
             MiddleHelpers().textPopular(),
-            MiddleHelpers().dataPopular(context, 'Popular Items')
+            MiddleHelpers().getdata(context, 'Popular Items')
           ],
         ),
       ),

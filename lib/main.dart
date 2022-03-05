@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:foodybuddy/Providers/Calculations.dart';
 import 'package:foodybuddy/Providers/auth_provider.dart';
+import 'package:foodybuddy/Providers/reviewCart.dart';
 import 'package:foodybuddy/Views/Mainpage.dart';
 import 'package:foodybuddy/Views/SplashScreen.dart';
 import 'package:foodybuddy/Views/auth_screen.dart';
@@ -38,6 +39,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+                ChangeNotifierProvider<ReviewCartProvider>(
+          create: (context) => ReviewCartProvider(),
+        ),
         ChangeNotifierProvider.value(value: Calculations()),
         ChangeNotifierProvider.value(value: Header()),
         ChangeNotifierProvider.value(value: MiddleHelpers()),

@@ -32,7 +32,7 @@ class _CartState extends State<Cart> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [MiddleHelpers().dataPopular(context, 'myOrders')],
+          children: [MiddleHelpers().getdata(context, 'myOrders')],
         ),
       ),
     );

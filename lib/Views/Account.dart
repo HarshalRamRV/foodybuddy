@@ -1,9 +1,8 @@
+
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:foodybuddy/Providers/auth_provider.dart';
 import 'package:foodybuddy/Views/SplashScreen.dart';
 import 'package:foodybuddy/Views/auth_screen.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 String? get getUserPhoneNo => userPhoneNo;

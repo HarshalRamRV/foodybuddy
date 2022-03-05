@@ -11,12 +11,13 @@ class Mainscreen extends StatefulWidget {
 
 class _MainscreenState extends State<Mainscreen> {
   String _currentPage = "Page1";
-  List<String> pageKeys = ["Page1", "Page2", "Page3", "Page4"];
+  List<String> pageKeys = ["Page1", "Page2", "Page3", "Page4", "Page5"];
   Map<String, GlobalKey<NavigatorState>> _navigatorKeys = {
     "Page1": GlobalKey<NavigatorState>(),
     "Page2": GlobalKey<NavigatorState>(),
     "Page3": GlobalKey<NavigatorState>(),
     "Page4": GlobalKey<NavigatorState>(),
+    "Page5": GlobalKey<NavigatorState>(),
   };
   int _selectedIndex = 0;
 
@@ -53,6 +54,7 @@ class _MainscreenState extends State<Mainscreen> {
             _buildOffstageNavigator("Page2"),
             _buildOffstageNavigator("Page3"),
             _buildOffstageNavigator("Page4"),
+            _buildOffstageNavigator("Page5"),
           ]),
           bottomNavigationBar: BottomNavigationBar(
             backgroundColor: Colors.white,
@@ -75,6 +77,8 @@ class _MainscreenState extends State<Mainscreen> {
               ),
               BottomNavigationBarItem(
                   icon: Icon(Icons.search), title: Text('Search')),
+                                BottomNavigationBarItem(
+                  icon: Icon(Icons.shopping_cart), title: Text('Cart')),
               BottomNavigationBarItem(
                   icon: Icon(Icons.notifications),
                   title: Text('Notifications')),
