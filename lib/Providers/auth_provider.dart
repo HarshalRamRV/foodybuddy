@@ -9,12 +9,15 @@ class AuthProvider with ChangeNotifier {
   late String verificationId;
   String? uid;
   String? get getUid => uid;
+  String? phoneNo;
+  String? get getphoneNo => phoneNo;
 
   Future<void> verifyPhone(String countryCode, String mobile) async {
     var mobileToSend = mobile;
     final PhoneCodeSent smsOTPSent = (String verId, [int? forceCodeResend]) {
       this.verificationId = verId;
     };
+
     try {
       await _firebaseAuth.verifyPhoneNumber(
           phoneNumber: mobileToSend,
@@ -51,10 +54,15 @@ class AuthProvider with ChangeNotifier {
       if (currentUser!.uid != "") {
         print(currentUser.uid);
       }
+      if (currentUser.phoneNumber != "") {
+        print(currentUser.phoneNumber);
+      }
       uid = currentUser.uid;
-      SharedPreferences sharedPreferences =
-          await SharedPreferences.getInstance();
+      phoneNo = currentUser.phoneNumber;
+      SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
       sharedPreferences.setString('uid', uid!);
+      notifyListeners();
+      sharedPreferences.setString('phoneNumber', phoneNo!);
       notifyListeners();
     } catch (e) {
       throw e;

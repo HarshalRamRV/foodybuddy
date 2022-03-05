@@ -1,7 +1,12 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:foodybuddy/Providers/auth_provider.dart';
+import 'package:foodybuddy/Views/SplashScreen.dart';
 import 'package:foodybuddy/Views/auth_screen.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+String? get getUserPhoneNo => userPhoneNo;
 
 class Account extends StatefulWidget {
   const Account({Key? key}) : super(key: key);
@@ -36,7 +41,7 @@ class _AccountState extends State<Account> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'username',
+                    userPhoneNo!.substring(3).toString(),
                     style: TextStyle(color: Colors.orange, fontSize: 24.0),
                   ),
                   Padding(
@@ -105,7 +110,8 @@ class _AccountState extends State<Account> {
                 SharedPreferences sharedPreferences =
                     await SharedPreferences.getInstance();
                 sharedPreferences.remove('uid');
-                        Navigator.of(context, rootNavigator: true).pushReplacementNamed(AuthScreen.routeArgs);     
+                Navigator.of(context, rootNavigator: true)
+                    .pushReplacementNamed(AuthScreen.routeArgs);
               },
               child: ListTile(
                 trailing: Icon(

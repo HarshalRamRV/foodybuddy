@@ -7,21 +7,26 @@ import 'package:provider/provider.dart';
 class Calculations with ChangeNotifier {
   int cartData = 0;
   int ItemQuant = 0;
+  bool newItem = true;
   int get getCartData => cartData;
-  int get getItemQuant => ItemQuant;
-
-  addItemQuant() {
-    ItemQuant++;
+  bool get getNewItem => newItem;
+  
+  void setItem() {
+    newItem = true;
+  }
+  addItem() {
+    newItem = false;
     notifyListeners();
   }
-
-  minusItemQuant() {
-    ItemQuant--;
+    minusItem() {
+    newItem = true;
     notifyListeners();
   }
 
   addToCart(BuildContext context, dynamic data) async {
-    cartData++;
+    if (cartData <= 50) {
+      cartData++;
+    }
     await Provider.of<ManageData>(context, listen: false)
         .submitData(context, data);
     notifyListeners();
@@ -35,4 +40,6 @@ class Calculations with ChangeNotifier {
         .deleteData(context, data1);
     notifyListeners();
   }
+
+
 }

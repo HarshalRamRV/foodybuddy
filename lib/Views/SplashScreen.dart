@@ -6,6 +6,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 String? userUid;
+String? userPhoneNo;
 class SplashScreen extends StatefulWidget {
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -15,6 +16,8 @@ class _SplashScreenState extends State<SplashScreen> {
   Future getUid() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     userUid = sharedPreferences.getString('uid');
+    userPhoneNo = sharedPreferences.getString('phoneNumber');
+    print(userPhoneNo);
     print(userUid);
   }
 

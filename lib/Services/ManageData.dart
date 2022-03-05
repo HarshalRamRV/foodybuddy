@@ -10,6 +10,13 @@ class ManageData extends ChangeNotifier {
         await firebaseFirestore.collection(collection).get();
     return querySnapshot.docs;
   }
+  
+  Future<int> countDocuments(String collection) async {
+    QuerySnapshot querySnapshot = await firebaseFirestore
+        .collection(collection)
+        .get();
+    return querySnapshot.docs.length;
+  }
 
   Future submitData(BuildContext context, dynamic data) async {
     return FirebaseFirestore.instance
@@ -18,7 +25,7 @@ class ManageData extends ChangeNotifier {
         .set(data);
   }
 
-  Future deleteData(BuildContext context, data1){
+  Future deleteData(BuildContext context, data1) {
     return FirebaseFirestore.instance
         .collection('myOrders')
         .doc(Provider.of<AuthProvider>(context, listen: false).getUid)

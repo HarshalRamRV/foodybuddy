@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:foodybuddy/Providers/Calculations.dart';
 import 'package:foodybuddy/Services/ManageData.dart';
 import 'package:foodybuddy/Views/Detailedpage.dart';
 import 'package:lottie/lottie.dart';
@@ -109,11 +110,10 @@ class MiddleHelpers extends ChangeNotifier {
     );
   }
 
-  Widget dataCartTest(BuildContext context, String collection) {
+  Widget dataCart(BuildContext context, String collection) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: ConstrainedBox(
-        constraints: BoxConstraints(maxHeight: 270.0, minHeight: 100.0),
+      child: Container(
         child: FutureBuilder(
           future: Provider.of<ManageData>(context, listen: false)
               .fetchData(collection),
@@ -286,6 +286,8 @@ class MiddleHelpers extends ChangeNotifier {
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
                     onTap: () {
+                      Provider.of<Calculations>(context, listen: false)
+                          .setItem();
                       Navigator.push(
                           context,
                           PageTransition(

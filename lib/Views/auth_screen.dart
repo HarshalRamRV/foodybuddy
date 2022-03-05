@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:foodybuddy/Views/verify_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../widgets/user_text_field.dart';
 import '../widgets/rounded_button.dart';
 import '../Providers/auth_provider.dart';

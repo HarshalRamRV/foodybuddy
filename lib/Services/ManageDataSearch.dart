@@ -15,4 +15,10 @@ class DataController extends GetxController {
         .where('name', isGreaterThanOrEqualTo: queryString)
         .get();
   }
+    Future querySearch(String queryString) {
+    return FirebaseFirestore.instance
+        .collection('myOders')
+        .where('name', isGreaterThanOrEqualTo: queryString)
+        .get();
+  }
 }
