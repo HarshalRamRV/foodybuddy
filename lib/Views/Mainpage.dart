@@ -1,7 +1,9 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, unused_local_variable
 
 import 'package:flutter/material.dart';
 import 'package:foodybuddy/Navigation/tab_navigator.dart';
+import 'package:foodybuddy/Providers/reviewCart.dart';
+import 'package:provider/provider.dart';
 
 class Mainscreen extends StatefulWidget {
   static const routeArgs = '/main-screen';
@@ -34,6 +36,7 @@ class _MainscreenState extends State<Mainscreen> {
 
   @override
   Widget build(BuildContext context) {
+    ReviewCartProvider reviewCartProvider = Provider.of(context);
     return WillPopScope(
         onWillPop: () async {
           final isFirstRouteInCurrentTab =
@@ -73,17 +76,18 @@ class _MainscreenState extends State<Mainscreen> {
             items: [
               BottomNavigationBarItem(
                 icon: Icon(Icons.home),
-                title: Text('Home'),
+                label: 'Home',
               ),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.search), title: Text('Search')),
+                  icon: Icon(Icons.search), label: 'Search'),
                                 BottomNavigationBarItem(
-                  icon: Icon(Icons.shopping_cart), title: Text('Cart')),
+                  icon: Icon(Icons.shopping_cart), label: 'Cart'),
               BottomNavigationBarItem(
                   icon: Icon(Icons.notifications),
-                  title: Text('Notifications')),
+                  label: 'Notifications'),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.account_circle), title: Text('Account')),
+                  icon: Icon(Icons.account_circle), label: 'Account'),
+                  
             ],
           ),
         ));

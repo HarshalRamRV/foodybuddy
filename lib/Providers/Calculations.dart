@@ -10,15 +10,17 @@ class Calculations with ChangeNotifier {
   bool newItem = true;
   int get getCartData => cartData;
   bool get getNewItem => newItem;
-  
+
   void setItem() {
     newItem = true;
   }
+
   addItem() {
     newItem = false;
     notifyListeners();
   }
-    minusItem() {
+
+  minusItem() {
     newItem = true;
     notifyListeners();
   }
@@ -40,6 +42,4 @@ class Calculations with ChangeNotifier {
         .deleteData(context, data1);
     notifyListeners();
   }
-
-
 }

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:foodybuddy/Providers/Calculations.dart';
+import 'package:foodybuddy/Providers/reviewCart.dart';
 import 'package:foodybuddy/Services/ManageData.dart';
 import 'package:foodybuddy/Views/Cartold.dart';
 import 'package:page_transition/page_transition.dart';
@@ -98,6 +99,7 @@ class _DetailedScreenState extends State<DetailedScreen> {
   }
 
   Widget floatinActionButton() {
+    ReviewCartProvider reviewCartProvider = Provider.of(context);
     return Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
       if (Provider.of<Calculations>(context, listen: false).getNewItem)
         ElevatedButton(
@@ -174,9 +176,7 @@ class _DetailedScreenState extends State<DetailedScreen> {
             radius: 10.0,
             backgroundColor: Colors.deepOrange[900],
             child: Text(
-              Provider.of<Calculations>(context, listen: true)
-                  .getCartData
-                  .toString(),
+              reviewCartProvider.getReviewCartDataList.length.toString(),
               style: TextStyle(color: Colors.white),
             ),
           ),

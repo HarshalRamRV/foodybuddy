@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:foodybuddy/Providers/Calculations.dart';
 import 'package:foodybuddy/Providers/auth_provider.dart';
+import 'package:foodybuddy/Providers/PaymentHelper.dart';
 import 'package:foodybuddy/Providers/reviewCart.dart';
 import 'package:foodybuddy/Views/Mainpage.dart';
 import 'package:foodybuddy/Views/SplashScreen.dart';
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
                 ChangeNotifierProvider<ReviewCartProvider>(
           create: (context) => ReviewCartProvider(),
         ),
+        ChangeNotifierProvider.value(value: PaymentHelper()),
         ChangeNotifierProvider.value(value: Calculations()),
         ChangeNotifierProvider.value(value: Header()),
         ChangeNotifierProvider.value(value: MiddleHelpers()),

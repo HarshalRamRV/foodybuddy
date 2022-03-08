@@ -15,6 +15,8 @@ class ItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      // height: MediaQuery.of(context).size.height,
+      // width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.all(Radius.circular(0.0)),
@@ -88,20 +90,9 @@ class ItemWidget extends StatelessWidget {
                         height: 10.0,
                       ),
                       Row(
-                        children: [
-                          // ElevatedButton(
-                          //   style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Color(0xFFF06623))),
-                          //   onPressed: onPressed,
-                          //   child: Text(
-                          //     "Add to Cart",
-                          //     style: TextStyle(
-                          //         fontSize: 16.0,
-                          //         fontWeight: FontWeight.w400,
-                          //         color: Colors.white),
-                          //   ),
-                          // ),
-                          Count(productName: itemName, productImage: img, productPrice: int.parse(price), productCategory: category,)
-                        ],
+                        children: 
+                          [Count(productName: itemName, productImage: img, productPrice: int.parse(price), productCategory: category,)]
+                        ,
                       ),
                     ],
                   ),

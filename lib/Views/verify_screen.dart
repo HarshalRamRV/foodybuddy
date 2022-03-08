@@ -107,7 +107,7 @@ class VerifyScreen extends StatelessWidget {
                     title: 'Verify Code',
                     onPressed: () {
                       verifyOTP(context);
-                    }, maxwidth: 1000.0, minwidth: 400.0,
+                    }, maxwidth: double.parse('1000'), minwidth: double.parse('400'),
                   ),
                 ),
                 Align(
