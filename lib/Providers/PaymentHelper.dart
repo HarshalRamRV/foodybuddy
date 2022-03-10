@@ -5,11 +5,11 @@ class PaymentHelper with ChangeNotifier {
   
   TimeOfDay deliveryTime = TimeOfDay.now();
   
-  // Future selectTime(BuildContext context) async{
-  //   // ignore: unused_local_variable
-  //   final stelectedTime =  deliveryTime;
-  //   notifyListeners();
-  // }
+  Future selectTime(BuildContext context) async{
+    // ignore: unused_local_variable
+    final stelectedTime =  deliveryTime;
+    notifyListeners();
+  }
   handlePaymentSucess(BuildContext context,PaymentSuccessResponse paymentSuccessResponse) {
       return showResponse(context, paymentSuccessResponse.paymentId);}
   handlePaymentError(BuildContext context,PaymentFailureResponse paymentFailureResponse) {

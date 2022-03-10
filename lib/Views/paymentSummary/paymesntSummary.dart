@@ -1,6 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foodybuddy/Providers/PaymentHelper.dart';
 import 'package:foodybuddy/Providers/reviewCart.dart';
+import 'package:foodybuddy/Views/Homepage.dart';
+import 'package:foodybuddy/Views/Mainpage.dart';
+import 'package:foodybuddy/Views/ReviewCart.dart';
 import 'package:foodybuddy/Views/SplashScreen.dart';
 import 'package:foodybuddy/Views/paymentSummary/orderItem.dart';
 import 'package:foodybuddy/widgets/rounded_button.dart';
@@ -38,12 +43,10 @@ class _PaymentSummaryState extends State<PaymentSummary> {
 
   Future openCheckout(totalPrice) async {
     var options = {
-      'key': 'rzp_live_ILgsfZCZoFIKMb',
+      'key': 'rzp_test_0TNW4hYzaHgCAt',
       'amount': totalPrice * 100,
-      'name': 'Acme Corp.',
-      'description': 'Fine T-Shirt',
-      'retry': {'enabled': true, 'max_count': 1},
-      'send_sms_hash': true,
+      'name': userPhoneNo,
+      'description': 'Payment',
       'prefill': {'contact': userPhoneNo, 'email': 'test@razorpay.com'},
       'external': {
         'wallets': ['paytm']
@@ -61,6 +64,49 @@ class _PaymentSummaryState extends State<PaymentSummary> {
     ReviewCartProvider reviewCartProvider = Provider.of(context);
     reviewCartProvider.getReviewCartData();
     double totalPrice = reviewCartProvider.getTotalPrice();
+    setOrderDetails() async {
+      await FirebaseFirestore.instance.collection("Orders").doc(userUid).set({
+        "phone": userPhoneNo,
+        "uid": userUid,
+        "time": Provider.of<PaymentHelper>(context, listen: false)
+            .deliveryTime
+            .format(context)
+      });
+    }
+
+    placeOrder() async {
+      QuerySnapshot reviewCartValue = await FirebaseFirestore.instance
+          .collection("ReviewCart")
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection("YourReviewCart")
+          .get();
+      reviewCartValue.docs.forEach((element) async {
+        await FirebaseFirestore.instance
+            .collection("Orders")
+            .doc(userUid)
+            .collection("myOrders")
+            .add({
+          'image': element.get("image"),
+          'name': element.get("name"),
+          'price': element.get("price"),
+          'category': element.get("category"),
+          'quantity': element.get("quantity")
+        });
+      });
+    }
+
+    deleteReviewCartData() async {
+      await FirebaseFirestore.instance
+          .collection("ReviewCart")
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection("YourReviewCart").snapshots().forEach((element) {
+        for (QueryDocumentSnapshot snapshot in element.docs) {
+          snapshot.reference.delete();
+        }
+      });
+
+    }
+
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Color(0xFFF06623),
@@ -84,7 +130,12 @@ class _PaymentSummaryState extends State<PaymentSummary> {
           trailing: RoundedButton(
               title: "Place Order",
               onPressed: () async {
-                openCheckout(totalPrice);
+                openCheckout(totalPrice).whenComplete(() {
+                  setOrderDetails();
+                  placeOrder();
+                  deleteReviewCartData();
+                });
+                Navigator.of(context).pop();
               },
               maxwidth: 200,
               minwidth: 150)),
