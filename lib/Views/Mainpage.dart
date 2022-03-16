@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 
 class Mainscreen extends StatefulWidget {
   static const routeArgs = '/main-screen';
+
   @override
   _MainscreenState createState() => _MainscreenState();
 }

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +7,7 @@ import 'package:foodybuddy/Providers/PaymentHelper.dart';
 import 'package:foodybuddy/Providers/reviewCart.dart';
 import 'package:foodybuddy/Views/Homepage.dart';
 import 'package:foodybuddy/Views/Mainpage.dart';
+import 'package:foodybuddy/Views/OrderStatus.dart';
 import 'package:foodybuddy/Views/ReviewCart.dart';
 import 'package:foodybuddy/Views/SplashScreen.dart';
 import 'package:foodybuddy/Views/paymentSummary/orderItem.dart';
@@ -20,12 +23,14 @@ class PaymentSummary extends StatefulWidget {
 }
 
 class _PaymentSummaryState extends State<PaymentSummary> {
-  late Razorpay razorpay;
+  Razorpay razorpay = Razorpay();
+  var orderTotal;
+  bool pay = false;
+  final prevOrderNo =
+      FirebaseFirestore.instance.collection("Orders").snapshots().length;
   @override
   void initState() {
-    razorpay = Razorpay();
-    razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS,
-        Provider.of<PaymentHelper>(context, listen: false).handlePaymentSucess);
+    razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, handlePaymentSucess);
     razorpay.on(Razorpay.EVENT_PAYMENT_ERROR,
         Provider.of<PaymentHelper>(context, listen: false).handlePaymentError);
     razorpay.on(
@@ -41,13 +46,76 @@ class _PaymentSummaryState extends State<PaymentSummary> {
     razorpay.clear();
   }
 
-  Future openCheckout(totalPrice) async {
+  void handlePaymentSucess(PaymentSuccessResponse response) async {
+    var orderNo = Provider.of<PaymentHelper>(context, listen: false).getOrderNo;
+    print("Payment Success");
+    setOrderDetails(orderNo);
+    placeOrder(orderNo);
+    deleteReviewCartData();
+                    Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => OrderStatus(),
+                ));
+  }
+
+  setOrderDetails(orderNo) async {
+    await FirebaseFirestore.instance
+        .collection("Orders")
+        .doc(orderNo.toString())
+        .set({
+      "orderNo": orderNo.toString(),
+      "phone": userPhoneNo,
+      "total": orderTotal,
+      "uid": userUid,
+      "time": Provider.of<PaymentHelper>(context, listen: false)
+          .deliveryTime
+          .format(context)
+    });
+  }
+
+  placeOrder(orderNo) async {
+    QuerySnapshot reviewCartValue = await FirebaseFirestore.instance
+        .collection("ReviewCart")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection("YourReviewCart")
+        .get();
+    reviewCartValue.docs.forEach((element) async {
+      await FirebaseFirestore.instance
+          .collection("Orders")
+          .doc(orderNo.toString())
+          .collection("myOrders")
+          .add({
+        'image': element.get("image"),
+        'name': element.get("name"),
+        'price': element.get("price"),
+        'category': element.get("category"),
+        'quantity': element.get("quantity")
+      });
+    });
+  }
+
+  deleteReviewCartData() async {
+    await FirebaseFirestore.instance
+        .collection("ReviewCart")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection("YourReviewCart")
+        .snapshots()
+        .forEach((element) {
+      for (QueryDocumentSnapshot snapshot in element.docs) {
+        snapshot.reference.delete();
+      }
+    });
+  }
+
+  Future openCheckout(totalPlusFee) async {
     var options = {
       'key': 'rzp_test_0TNW4hYzaHgCAt',
-      'amount': totalPrice * 100,
-      'name': userPhoneNo,
+      'amount': totalPlusFee * 100,
+      'name': userPhoneNo.toString().substring(3),
       'description': 'Payment',
-      'prefill': {'contact': userPhoneNo, 'email': 'test@razorpay.com'},
+      'prefill': {
+        'contact': userPhoneNo.toString().substring(3),
+        'email': 'ramharshal03@gmail.com'
+      },
       'external': {
         'wallets': ['paytm']
       }
@@ -61,52 +129,14 @@ class _PaymentSummaryState extends State<PaymentSummary> {
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<PaymentHelper>(context, listen: false).getOrderNumber();
     ReviewCartProvider reviewCartProvider = Provider.of(context);
     reviewCartProvider.getReviewCartData();
     double totalPrice = reviewCartProvider.getTotalPrice();
-    setOrderDetails() async {
-      await FirebaseFirestore.instance.collection("Orders").doc(userUid).set({
-        "phone": userPhoneNo,
-        "uid": userUid,
-        "time": Provider.of<PaymentHelper>(context, listen: false)
-            .deliveryTime
-            .format(context)
-      });
-    }
-
-    placeOrder() async {
-      QuerySnapshot reviewCartValue = await FirebaseFirestore.instance
-          .collection("ReviewCart")
-          .doc(FirebaseAuth.instance.currentUser!.uid)
-          .collection("YourReviewCart")
-          .get();
-      reviewCartValue.docs.forEach((element) async {
-        await FirebaseFirestore.instance
-            .collection("Orders")
-            .doc(userUid)
-            .collection("myOrders")
-            .add({
-          'image': element.get("image"),
-          'name': element.get("name"),
-          'price': element.get("price"),
-          'category': element.get("category"),
-          'quantity': element.get("quantity")
-        });
-      });
-    }
-
-    deleteReviewCartData() async {
-      await FirebaseFirestore.instance
-          .collection("ReviewCart")
-          .doc(FirebaseAuth.instance.currentUser!.uid)
-          .collection("YourReviewCart").snapshots().forEach((element) {
-        for (QueryDocumentSnapshot snapshot in element.docs) {
-          snapshot.reference.delete();
-        }
-      });
-
-    }
-
+    double totalPlusFee = (totalPrice +
+        ((totalPrice / 100 * 2) / 100 * 18) +
+        (totalPrice / 100 * 2));
+    orderTotal = totalPlusFee.roundToDouble();
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Color(0xFFF06623),
@@ -130,12 +160,7 @@ class _PaymentSummaryState extends State<PaymentSummary> {
           trailing: RoundedButton(
               title: "Place Order",
               onPressed: () async {
-                openCheckout(totalPrice).whenComplete(() {
-                  setOrderDetails();
-                  placeOrder();
-                  deleteReviewCartData();
-                });
-                Navigator.of(context).pop();
+                openCheckout(totalPlusFee.roundToDouble()).whenComplete(() {});
               },
               maxwidth: 200,
               minwidth: 150)),
