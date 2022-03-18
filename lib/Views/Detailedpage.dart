@@ -22,7 +22,6 @@ class _DetailedScreenState extends State<DetailedScreen> {
   @override
   Widget build(BuildContext context) {
     print("cart count");
-    print(Provider.of<ManageData>(context, listen: false).countDocuments("myOrders").toString(),);
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: floatinActionButton(),
@@ -114,13 +113,6 @@ class _DetailedScreenState extends State<DetailedScreen> {
                 textStyle: MaterialStateProperty.all(TextStyle(fontSize: 30))),
             onPressed: () {
               Provider.of<Calculations>(context, listen: false).addItem();
-              Provider.of<Calculations>(context, listen: false)
-                  .addToCart(context, {
-                'image': widget.queryDocumentSnapshot['image'],
-                'name': widget.queryDocumentSnapshot['name'],
-                'price': widget.queryDocumentSnapshot['price'],
-                'category': widget.queryDocumentSnapshot['category'],
-              });
             },
             child: Text(
               "Add To Cart",
@@ -141,15 +133,7 @@ class _DetailedScreenState extends State<DetailedScreen> {
                     EdgeInsets.symmetric(horizontal: 107.0, vertical: 15.0)),
                 textStyle: MaterialStateProperty.all(TextStyle(fontSize: 30))),
             onPressed: () {
-              Provider.of<Calculations>(context, listen: false).minusItem();
-              Provider.of<Calculations>(context, listen: false)
-                  .removeFromCart(context, {
-                'image': widget.queryDocumentSnapshot['image'],
-                'name': widget.queryDocumentSnapshot['name'],
-                'price': widget.queryDocumentSnapshot['price'],
-                'category': widget.queryDocumentSnapshot['category'],
-              });
-            },
+              Provider.of<Calculations>(context, listen: false).minusItem();            },
             child: Text(
               "Delete Item",
               style: TextStyle(

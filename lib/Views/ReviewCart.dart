@@ -84,7 +84,6 @@ class ReviewCart extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: ListView.builder(
                 padding: EdgeInsets.zero,
-                physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: reviewCartProvider.getReviewCartDataList.length,
                 itemBuilder: (context, index) {

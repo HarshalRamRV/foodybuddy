@@ -11,24 +11,9 @@ class ManageData extends ChangeNotifier {
     return querySnapshot.docs;
   }
   
-  Future<int> countDocuments(String collection) async {
-    QuerySnapshot querySnapshot = await firebaseFirestore
-        .collection(collection)
-        .get();
-    return querySnapshot.docs.length;
-  }
-
-  Future submitData(BuildContext context, dynamic data) async {
-    return FirebaseFirestore.instance
-        .collection('myOrders')
-        .doc(Provider.of<AuthProvider>(context, listen: false).getUid)
-        .set(data);
-  }
-
-  Future deleteData(BuildContext context, data1) {
-    return FirebaseFirestore.instance
-        .collection('myOrders')
-        .doc(Provider.of<AuthProvider>(context, listen: false).getUid)
-        .delete();
+  Future fetchCatData(String collection, String category) async {
+    QuerySnapshot querySnapshot =
+        await firebaseFirestore.collection(collection).where("category",isEqualTo:category.toString() ).get();
+    return querySnapshot.docs;
   }
 }

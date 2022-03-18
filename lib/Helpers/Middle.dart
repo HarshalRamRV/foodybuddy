@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:foodybuddy/Services/ManageData.dart';
+import 'package:foodybuddy/Views/Catogories.dart';
 import 'package:foodybuddy/widgets/ItemWidget.dart';
 import 'package:lottie/lottie.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 class MiddleHelpers extends ChangeNotifier {
@@ -49,7 +51,14 @@ class MiddleHelpers extends ChangeNotifier {
               itemCount: snapshot.data.length,
               itemBuilder: (BuildContext context, int index) {
                 return GestureDetector(
-                  onTap: () {},
+                                  onTap: (){
+                              Navigator.push(
+                context,
+                PageTransition(
+                  child: Catogories(category: snapshot.data[index].data()['category'],),
+                  type: PageTransitionType.fade,
+                ));
+                },
                   child: Card(
                     elevation: 5,
                     child: Container(
@@ -115,6 +124,41 @@ class MiddleHelpers extends ChangeNotifier {
         child: FutureBuilder(
           future: Provider.of<ManageData>(context, listen: false)
               .fetchData(collection),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: Lottie.asset('assets/foodanimation.json'),
+              );
+            } else {
+              return ListView.builder(
+                padding: EdgeInsets.zero,
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: snapshot.data.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return ItemWidget(
+                        itemName: snapshot.data[index].data()['name'],
+                        img: snapshot.data[index].data()['image'],
+                        category: snapshot.data[index].data()['category'],
+                        price: snapshot.data[index].data()['price'].toString(),
+                      );
+                },
+              );
+            }
+          },
+        ),
+      ),
+    );
+  }
+
+Widget getcatpage(BuildContext context, String collection, String category) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        height:  MediaQuery.of(context).size.height,
+        child: FutureBuilder(
+          future: Provider.of<ManageData>(context, listen: false)
+              .fetchCatData(collection,category),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(

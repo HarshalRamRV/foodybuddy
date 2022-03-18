@@ -25,21 +25,5 @@ class Calculations with ChangeNotifier {
     notifyListeners();
   }
 
-  addToCart(BuildContext context, dynamic data) async {
-    if (cartData <= 50) {
-      cartData++;
-    }
-    await Provider.of<ManageData>(context, listen: false)
-        .submitData(context, data);
-    notifyListeners();
-  }
 
-  removeFromCart(BuildContext context, dynamic data1) async {
-    if (cartData != 0) {
-      cartData--;
-    }
-    await Provider.of<ManageData>(context, listen: false)
-        .deleteData(context, data1);
-    notifyListeners();
-  }
 }

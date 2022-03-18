@@ -47,13 +47,14 @@ class _PaymentSummaryState extends State<PaymentSummary> {
   }
 
   void handlePaymentSucess(PaymentSuccessResponse response) async {
+
     var orderNo = Provider.of<PaymentHelper>(context, listen: false).getOrderNo;
     print("Payment Success");
     setOrderDetails(orderNo);
     placeOrder(orderNo);
     deleteReviewCartData();
                     Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => OrderStatus(),
+                  builder: (context) => OrderStatus( orderNo: orderNo,),
                 ));
   }
 
@@ -62,6 +63,7 @@ class _PaymentSummaryState extends State<PaymentSummary> {
         .collection("Orders")
         .doc(orderNo.toString())
         .set({
+      "orderStatus":"Getting Ready",
       "orderNo": orderNo.toString(),
       "phone": userPhoneNo,
       "total": orderTotal,
