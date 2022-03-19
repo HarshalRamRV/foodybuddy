@@ -155,7 +155,6 @@ Widget getcatpage(BuildContext context, String collection, String category) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        height:  MediaQuery.of(context).size.height,
         child: FutureBuilder(
           future: Provider.of<ManageData>(context, listen: false)
               .fetchCatData(collection,category),

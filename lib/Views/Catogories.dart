@@ -18,6 +18,7 @@ class CatogoriesState extends State<Catogories> {
     return Scaffold(
       backgroundColor: Color(0xfcfcfcfc),
       appBar: AppBar(
+                foregroundColor: Color(0xFFF06623),
         centerTitle: true,
         backgroundColor: Colors.white,
         title: Text(

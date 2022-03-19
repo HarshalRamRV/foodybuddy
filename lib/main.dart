@@ -41,12 +41,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-                        ChangeNotifierProvider<OrderProvider>(
-          create: (context) => OrderProvider(),
-        ),
-                ChangeNotifierProvider<ReviewCartProvider>(
-          create: (context) => ReviewCartProvider(),
-        ),
+        //                 ChangeNotifierProvider<OrderProvider>(
+        //   create: (context) => OrderProvider(),
+        // ),
+        //         ChangeNotifierProvider<ReviewCartProvider>(
+        //   create: (context) => ReviewCartProvider(),
+        // ),
+        ChangeNotifierProvider.value(value: OrderProvider()),
+        ChangeNotifierProvider.value(value: ReviewCartProvider()),
         ChangeNotifierProvider.value(value: PaymentHelper()),
         ChangeNotifierProvider.value(value: Calculations()),
         ChangeNotifierProvider.value(value: Header()),
@@ -60,6 +62,25 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           visualDensity: VisualDensity.adaptivePlatformDensity,
+              primaryColor:  Color(0xFFF06623),
+  //             splashColor: Color(0xFFF06623),
+  //             hintColor:Color(0xFFF06623),
+  //             focusColor: Color(0xFFF06623),
+  //             highlightColor: Color(0xFFF06623),
+  //             textSelectionColor: Color(0xFFF06623),
+  //             textSelectionHandleColor:Color(0xFFF06623),
+  //             accentColor:Color(0xFFF06623),
+  //              primaryColorDark:Color(0xFFF06623),
+  //  hoverColor:Color(0xFFF06623),
+  //  shadowColor:Color(0xFFF06623),
+  //  canvasColor:Color(0xFFF06623),
+  //  scaffoldBackgroundColor:Color(0xFFF06623),
+  //  bottomAppBarColor:Color(0xFFF06623),
+  //  cardColor:Color(0xFFF06623),
+  //  dividerColor:Color(0xFFF06623),
+  //  selectedRowColor:Color(0xFFF06623),
+  //  unselectedWidgetColor:Color(0xFFF06623),
+  //  disabledColor:Color(0xFFF06623),
         ),
         home: SplashScreen(),
         routes: {

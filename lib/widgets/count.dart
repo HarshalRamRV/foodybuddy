@@ -24,7 +24,6 @@ class Count extends StatefulWidget {
 class _CountState extends State<Count> {
   int count = 1;
   bool isTrue = false;
-
   getAddAndQuantity() {
     FirebaseFirestore.instance
         .collection("ReviewCart")
@@ -43,6 +42,11 @@ class _CountState extends State<Count> {
                       isTrue = value.get("isAdd");
                     })
                   }
+                  else{
+                    setState(() {
+                      isTrue = false;
+                    })
+                  }
               }
           },
         );
@@ -51,7 +55,6 @@ class _CountState extends State<Count> {
   @override
   Widget build(BuildContext context) {
     getAddAndQuantity();
-
     ReviewCartProvider reviewCartProvider = Provider.of(context);
     return Container(
       height: 40,
@@ -143,9 +146,15 @@ class _CountState extends State<Count> {
                     category: widget.productCategory,
                   );
                 },
-                child: Text(
-                  "ADD",
-                  style: TextStyle(color: Colors.black),
+                child: Container(
+                  height: 50,
+                  width: 100,
+                  child: Center(
+                    child: Text(
+                      "ADD",
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ),
                 ),
               ),
             ),

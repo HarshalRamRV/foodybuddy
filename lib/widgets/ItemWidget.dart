@@ -16,7 +16,7 @@ class ItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       // height: MediaQuery.of(context).size.height,
-      // width: MediaQuery.of(context).size.width,
+      width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.all(Radius.circular(0.0)),
@@ -26,6 +26,7 @@ class ItemWidget extends StatelessWidget {
           ]),
       margin: EdgeInsets.symmetric(horizontal: 0.0, vertical: 5.0),
       child: Row(
+        mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -43,12 +44,13 @@ class ItemWidget extends StatelessWidget {
               ),
             ],
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
+          Stack(
+            //         mainAxisSize: MainAxisSize.max,
+            // mainAxisAlignment: MainAxisAlignment.start,
+            // crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                width: 215.0,
+                width: MediaQuery.of(context).size.width - 145,
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 8.0),
                   child: Column(
@@ -58,8 +60,9 @@ class ItemWidget extends StatelessWidget {
                       Text(
                         itemName,
                         textAlign: TextAlign.left,
+                        softWrap: true,
                         style: TextStyle(
-                            fontSize: 15.0,
+                            fontSize: 18.0,
                             fontWeight: FontWeight.bold,
                             color: Colors.black),
                       ),
@@ -67,7 +70,7 @@ class ItemWidget extends StatelessWidget {
                         category,
                         textAlign: TextAlign.left,
                         style: TextStyle(
-                            fontSize: 13.0,
+                            fontSize: 17.0,
                             fontWeight: FontWeight.bold,
                             color: Colors.grey),
                       ),
@@ -75,24 +78,25 @@ class ItemWidget extends StatelessWidget {
                         children: [
                           Icon(
                             FontAwesomeIcons.rupeeSign,
-                            size: 14.0,
+                            size: 18.0,
                           ),
                           Text(
                             price,
                             style: TextStyle(
-                                fontSize: 14.0,
+                                fontSize: 18.0,
                                 fontWeight: FontWeight.w400,
                                 color: Colors.black),
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      Row(
-                        children: 
-                          [Count(productName: itemName, productImage: img, productPrice: int.parse(price), productCategory: category,)]
-                        ,
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Count(
+                          productName: itemName,
+                          productImage: img,
+                          productPrice: int.parse(price),
+                          productCategory: category,
+                        ),
                       ),
                     ],
                   ),

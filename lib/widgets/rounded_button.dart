@@ -9,9 +9,10 @@ class RoundedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.all(6),
       child: ElevatedButton(
         style: ButtonStyle(
+          // padding:MaterialStateProperty.all(EdgeInsets.zero),
             minimumSize: MaterialStateProperty.all(Size(minwidth , 50)),
             maximumSize: MaterialStateProperty.all(Size(maxwidth, 50)),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(

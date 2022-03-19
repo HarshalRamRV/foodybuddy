@@ -7,6 +7,8 @@ import 'package:foodybuddy/Views/OrderStatus.dart';
 class OrderProvider with ChangeNotifier {
   String orderNo = "";
   String orderStatus = "";
+  String fee = "";
+  String totalNoFee = "";
   List<ReviewCartModel> ordersDataList = [];
   void getOrderData(orderNo) async {
     List<ReviewCartModel> newList = [];
@@ -51,9 +53,40 @@ class OrderProvider with ChangeNotifier {
       return value
           .data()!['orderStatus']; // Access your after your get the data
     });
-        notifyListeners();
+    notifyListeners();
   }
-    String get getOrderStatus {
+
+  String get getOrderStatus {
     return orderStatus;
+  }
+
+  setFee(orderNo) async {
+    fee = await FirebaseFirestore.instance
+        .collection('Orders')
+        .doc(orderNo.toString())
+        .get()
+        .then((value) {
+      return value.data()!['fee']; // Access your after your get the data
+    });
+    notifyListeners();
+  }
+
+  String get getFee {
+    return fee;
+  }
+
+  setTotalNoFee(orderNo) async {
+    totalNoFee = await FirebaseFirestore.instance
+        .collection('Orders')
+        .doc(orderNo.toString())
+        .get()
+        .then((value) {
+      return value
+          .data()!['totalNoFee']; // Access your after your get the data
+    });
+    notifyListeners();
+  }
+  String get getTotalNoFee {
+    return totalNoFee;
   }
 }

@@ -6,33 +6,40 @@ class OrderItem extends StatelessWidget {
   OrderItem({required this.e});
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: Image.network(
-        e.image,
-        width: 60,
-      ),
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-           e.name,
-            style: TextStyle(
-              color: Colors.grey[600],
+    return Padding(
+      padding: const EdgeInsets.all(2.0),
+      child: ListTile(
+        leading: Image.network(
+          e.image,
+          width: 75.0,
+          height: 75.0,
+          fit: BoxFit.cover,
+        ),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              width: MediaQuery.of(context).size.width -250,
+              child: Text(
+                e.name,
+                softWrap: true,
+                style: TextStyle(
+                  color: Colors.grey[600],
+                ),
+              ),
             ),
-          ),
-          Text(
-            e.category,
-            style: TextStyle(
-              color: Colors.grey[600],
+            Text(
+              e.quantity.toString(),
+              style: TextStyle(
+                color: Colors.grey[600],
+              ),
             ),
-          ),
-          Text(
-            "\$${e.price}",
-            
-          ),
-        ],
+            Text(
+              "\$${e.price}",
+            ),
+          ],
+        ),
       ),
-      subtitle: Text(e.quantity.toString()),
     );
   }
 }

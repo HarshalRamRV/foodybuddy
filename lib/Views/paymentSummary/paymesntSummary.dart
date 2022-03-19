@@ -24,6 +24,8 @@ class PaymentSummary extends StatefulWidget {
 
 class _PaymentSummaryState extends State<PaymentSummary> {
   Razorpay razorpay = Razorpay();
+  var fee;
+  var totalPrice;
   var orderTotal;
   bool pay = false;
   final prevOrderNo =
@@ -47,23 +49,26 @@ class _PaymentSummaryState extends State<PaymentSummary> {
   }
 
   void handlePaymentSucess(PaymentSuccessResponse response) async {
-
     var orderNo = Provider.of<PaymentHelper>(context, listen: false).getOrderNo;
     print("Payment Success");
-    setOrderDetails(orderNo);
+    setOrderDetails(orderNo,fee,totalPrice);
     placeOrder(orderNo);
     deleteReviewCartData();
-                    Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => OrderStatus( orderNo: orderNo,),
-                ));
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => OrderStatus(
+        orderNo: orderNo,
+      ),
+    ));
   }
 
-  setOrderDetails(orderNo) async {
+  setOrderDetails(orderNo,fee,totalNoFee) async {
     await FirebaseFirestore.instance
         .collection("Orders")
         .doc(orderNo.toString())
         .set({
-      "orderStatus":"Getting Ready",
+      "orderStatus": "Getting Ready",
+      "fee":fee.toString(),
+      "totalNoFee":totalNoFee.toString(),
       "orderNo": orderNo.toString(),
       "phone": userPhoneNo,
       "total": orderTotal,
@@ -100,10 +105,10 @@ class _PaymentSummaryState extends State<PaymentSummary> {
         .collection("ReviewCart")
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .collection("YourReviewCart")
-        .snapshots()
-        .forEach((element) {
-      for (QueryDocumentSnapshot snapshot in element.docs) {
-        snapshot.reference.delete();
+        .get()
+        .then((snapshot) {
+      for (DocumentSnapshot documentSnapshot in snapshot.docs) {
+        documentSnapshot.reference.delete();
       }
     });
   }
@@ -135,9 +140,8 @@ class _PaymentSummaryState extends State<PaymentSummary> {
     ReviewCartProvider reviewCartProvider = Provider.of(context);
     reviewCartProvider.getReviewCartData();
     double totalPrice = reviewCartProvider.getTotalPrice();
-    double totalPlusFee = (totalPrice +
-        ((totalPrice / 100 * 2) / 100 * 18) +
-        (totalPrice / 100 * 2));
+    double fee = ((totalPrice / 100 * 2) / 100 * 18) + (totalPrice / 100 * 2);
+    double totalPlusFee = (totalPrice + fee);
     orderTotal = totalPlusFee.roundToDouble();
     return Scaffold(
       appBar: AppBar(
@@ -145,7 +149,7 @@ class _PaymentSummaryState extends State<PaymentSummary> {
         centerTitle: true,
         backgroundColor: Colors.white,
         title: Text(
-          "Payment Summary",
+          "Cart",
           style: TextStyle(fontSize: 18, color: Colors.black),
         ),
       ),
@@ -164,8 +168,8 @@ class _PaymentSummaryState extends State<PaymentSummary> {
               onPressed: () async {
                 openCheckout(totalPlusFee.roundToDouble()).whenComplete(() {});
               },
-              maxwidth: 200,
-              minwidth: 150)),
+              maxwidth: 250,
+              minwidth: 200)),
       body: Padding(
         padding: const EdgeInsets.only(top: 10),
         child: ListView.builder(
@@ -174,6 +178,9 @@ class _PaymentSummaryState extends State<PaymentSummary> {
             return Column(
               children: [
                 ExpansionTile(
+                  initiallyExpanded: true,
+                  textColor: Color(0xFFF06623),
+                  iconColor: Color(0xFFF06623),
                   children: reviewCartProvider.getReviewCartDataList.map((e) {
                     return OrderItem(
                       e: e,
@@ -182,19 +189,57 @@ class _PaymentSummaryState extends State<PaymentSummary> {
                   title: Text(
                       "Order Items ${reviewCartProvider.getReviewCartDataList.length}"),
                 ),
-                Divider(),
                 ListTile(
                   minVerticalPadding: 5,
                   leading: Text(
-                    "Sub Total",
+                    "Bill Details",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                ListTile(
+                  minVerticalPadding: 5,
+                  leading: Text(
+                    "item Total",
+                    style: TextStyle(
+                      fontWeight: FontWeight.normal,
                     ),
                   ),
                   trailing: Text(
                     totalPrice.toString(),
                     style: TextStyle(
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+                ),
+                ListTile(
+                  minVerticalPadding: 5,
+                  leading: Text(
+                    "Taxes and Charges",
+                    style: TextStyle(
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+                  trailing: Text(
+                    fee.toString(),
+                    style: TextStyle(
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+                ),
+                ListTile(
+                  minVerticalPadding: 5,
+                  leading: Text(
+                    "To Pay",
+                    style: TextStyle(
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+                  trailing: Text(
+                    orderTotal.toString(),
+                    style: TextStyle(
+                      fontWeight: FontWeight.normal,
                     ),
                   ),
                 ),

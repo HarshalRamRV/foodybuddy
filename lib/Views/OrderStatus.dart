@@ -1,17 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:foodybuddy/Models/reviewCartModal.dart';
 import 'package:foodybuddy/Providers/PaymentHelper.dart';
 import 'package:foodybuddy/Providers/orderProvider.dart';
-import 'package:foodybuddy/Providers/reviewCart.dart';
 import 'package:foodybuddy/Views/paymentSummary/orderItem.dart';
-import 'package:foodybuddy/Views/paymentSummary/paymesntSummary.dart';
-import 'package:foodybuddy/widgets/ItemWidget.dart';
 import 'package:foodybuddy/widgets/rounded_button.dart';
 import 'package:provider/provider.dart';
 
 class OrderStatus extends StatelessWidget {
-  
   final int orderNo;
   OrderStatus({required this.orderNo});
   @override
@@ -38,6 +32,7 @@ class OrderStatus extends StatelessWidget {
               maxwidth: 300,
               minwidth: 250)),
       appBar: AppBar(
+        foregroundColor: Color(0xFFF06623),
         centerTitle: true,
         backgroundColor: Colors.white,
         title: Text(
@@ -55,8 +50,10 @@ class OrderStatus extends StatelessWidget {
                   itemCount: 1,
                   itemBuilder: (context, index) {
                     return Column(children: [
-                      Divider(),
                       ExpansionTile(
+                        initiallyExpanded: true,
+                        textColor: Color(0xFFF06623),
+                        iconColor: Color(0xFFF06623),
                         children: orderProvider.getOrdersDataList.map((e) {
                           return OrderItem(
                             e: e,

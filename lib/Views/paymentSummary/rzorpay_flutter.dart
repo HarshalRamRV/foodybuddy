@@ -46,7 +46,7 @@ class Razorpay {
     }
 
     var response = await _channel.invokeMethod('open', options);
-    print("print the response of payment successfull-----------\n ${response}");
+    print("print the response of payment successfull-----------\n $response");
     _handleResult(response);
   }
 

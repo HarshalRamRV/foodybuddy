@@ -4,6 +4,7 @@ import 'package:foodybuddy/Views/Homepage.dart';
 import 'package:foodybuddy/Views/Notifications.dart';
 import 'package:foodybuddy/Views/ReviewCart.dart';
 import 'package:foodybuddy/Views/Search.dart';
+import 'package:foodybuddy/Views/paymentSummary/paymesntSummary.dart';
 
 class TabNavigatorRoutes {
   static const String root = '/';
@@ -23,7 +24,7 @@ class TabNavigator extends StatelessWidget {
     else if (tabItem == "Page2")
       child = Search();
     else if (tabItem == "Page3") 
-      child = ReviewCart();
+      child = PaymentSummary();
     else if (tabItem == "Page4")
       child = Notifications();
     else if (tabItem == "Page5") 
