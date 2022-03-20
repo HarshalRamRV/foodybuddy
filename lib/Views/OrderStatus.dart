@@ -4,10 +4,23 @@ import 'package:foodybuddy/Providers/orderProvider.dart';
 import 'package:foodybuddy/Views/paymentSummary/orderItem.dart';
 import 'package:foodybuddy/widgets/rounded_button.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class OrderStatus extends StatelessWidget {
   final int orderNo;
   OrderStatus({required this.orderNo});
+  Future<void> dialNumber({required BuildContext context}) async {
+    final url = "tel:1234567890";
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("Unable to call 1234567890")));
+    }
+
+    return;
+  }
+
   @override
   Widget build(BuildContext context) {
     // Provider.of<OrderProvider>(context, listen: false).getOrderNo(context,orderNo.toString());
@@ -16,19 +29,16 @@ class OrderStatus extends StatelessWidget {
     OrderProvider orderProvider = Provider.of(context);
     orderProvider.getOrderData(orderNo.toString());
     orderProvider.setOrderStatus(orderNo.toString());
+    orderProvider.setFee(orderNo.toString());
+    orderProvider.setTotalNoFee(orderNo.toString());
     double totalPrice = orderProvider.getTotalPrice();
     return Scaffold(
       bottomNavigationBar: ListTile(
-          title: Text("Total Aount"),
-          subtitle: Text(
-            "\$ ${orderProvider.getTotalPrice()}",
-            style: TextStyle(
-              color: Colors.green[900],
-            ),
-          ),
-          trailing: RoundedButton(
+          title: RoundedButton(
               title: "Contact FoodyBuddy",
-              onPressed: () {},
+              onPressed: () {
+                dialNumber(context: context);
+              },
               maxwidth: 300,
               minwidth: 250)),
       appBar: AppBar(
@@ -36,7 +46,7 @@ class OrderStatus extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Colors.white,
         title: Text(
-          "ORDER STATUS",
+          "Order Status",
           style: TextStyle(color: Colors.black, fontSize: 18),
         ),
       ),
@@ -62,19 +72,57 @@ class OrderStatus extends StatelessWidget {
                         title: Text(
                             "Order Items ${orderProvider.getOrdersDataList.length}"),
                       ),
-                      Divider(),
                       ListTile(
                         minVerticalPadding: 5,
                         leading: Text(
-                          "Sub Total",
+                          "Bill Details",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        trailing: Text(
-                          "\$${totalPrice + 5}",
+                      ),
+                      ListTile(
+                        minVerticalPadding: 5,
+                        leading: Text(
+                          "item Total",
                           style: TextStyle(
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                        trailing: Text(
+                          orderProvider.getTotalNoFee.toString(),
+                          style: TextStyle(
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                      ),
+                      ListTile(
+                        minVerticalPadding: 5,
+                        leading: Text(
+                          "Taxes and Charges",
+                          style: TextStyle(
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                        trailing: Text(
+                          orderProvider.getFee.toString(),
+                          style: TextStyle(
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                      ),
+                      ListTile(
+                        minVerticalPadding: 5,
+                        leading: Text(
+                          "To Pay",
+                          style: TextStyle(
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                        trailing: Text(
+                          totalPrice.toString(),
+                          style: TextStyle(
+                            fontWeight: FontWeight.normal,
                           ),
                         ),
                       ),

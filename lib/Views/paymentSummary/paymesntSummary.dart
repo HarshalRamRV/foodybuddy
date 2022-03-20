@@ -5,10 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foodybuddy/Providers/PaymentHelper.dart';
 import 'package:foodybuddy/Providers/reviewCart.dart';
-import 'package:foodybuddy/Views/Homepage.dart';
-import 'package:foodybuddy/Views/Mainpage.dart';
 import 'package:foodybuddy/Views/OrderStatus.dart';
-import 'package:foodybuddy/Views/ReviewCart.dart';
 import 'package:foodybuddy/Views/SplashScreen.dart';
 import 'package:foodybuddy/Views/paymentSummary/orderItem.dart';
 import 'package:foodybuddy/widgets/rounded_button.dart';
@@ -27,9 +24,6 @@ class _PaymentSummaryState extends State<PaymentSummary> {
   var fee;
   var totalPrice;
   var orderTotal;
-  bool pay = false;
-  final prevOrderNo =
-      FirebaseFirestore.instance.collection("Orders").snapshots().length;
   @override
   void initState() {
     razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, handlePaymentSucess);
@@ -67,8 +61,8 @@ class _PaymentSummaryState extends State<PaymentSummary> {
         .doc(orderNo.toString())
         .set({
       "orderStatus": "Getting Ready",
-      "fee":fee.toString(),
-      "totalNoFee":totalNoFee.toString(),
+      "fee": fee.toString(),
+      "totalNoFee": totalNoFee.toString(),
       "orderNo": orderNo.toString(),
       "phone": userPhoneNo,
       "total": orderTotal,
@@ -139,9 +133,9 @@ class _PaymentSummaryState extends State<PaymentSummary> {
     Provider.of<PaymentHelper>(context, listen: false).getOrderNumber();
     ReviewCartProvider reviewCartProvider = Provider.of(context);
     reviewCartProvider.getReviewCartData();
-    double totalPrice = reviewCartProvider.getTotalPrice();
-    double fee = ((totalPrice / 100 * 2) / 100 * 18) + (totalPrice / 100 * 2);
-    double totalPlusFee = (totalPrice + fee);
+    totalPrice = reviewCartProvider.getTotalPrice();
+    fee = (((totalPrice / 100 * 2) / 100 * 18) + (totalPrice / 100 * 2)).roundToDouble();
+    double totalPlusFee = (totalPrice + fee).roundToDouble();
     orderTotal = totalPlusFee.roundToDouble();
     return Scaffold(
       appBar: AppBar(
