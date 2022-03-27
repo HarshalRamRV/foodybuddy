@@ -46,7 +46,7 @@ class OrderStatus extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Colors.white,
         title: Text(
-          "Order Status",
+          "Order No #$orderNo",
           style: TextStyle(color: Colors.black, fontSize: 18),
         ),
       ),
@@ -133,7 +133,10 @@ class OrderStatus extends StatelessWidget {
                           style: TextStyle(color: Colors.grey[600]),
                         ),
                         trailing: Text(
-                          orderProvider.getOrderStatus.toString(),
+                          orderProvider.getOrderStatus == false
+                              ? "Your Order is getting ready"
+                              : "Your order is ready",
+                          softWrap: true,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                           ),

@@ -6,7 +6,7 @@ import 'package:foodybuddy/Views/OrderStatus.dart';
 
 class OrderProvider with ChangeNotifier {
   String orderNo = "";
-  String orderStatus = "";
+  bool orderStatus = false;
   String fee = "";
   String totalNoFee = "";
   List<ReviewCartModel> ordersDataList = [];
@@ -56,7 +56,7 @@ class OrderProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  String get getOrderStatus {
+  bool get getOrderStatus {
     return orderStatus;
   }
 

@@ -45,7 +45,7 @@ class _PaymentSummaryState extends State<PaymentSummary> {
   void handlePaymentSucess(PaymentSuccessResponse response) async {
     var orderNo = Provider.of<PaymentHelper>(context, listen: false).getOrderNo;
     print("Payment Success");
-    setOrderDetails(orderNo,fee,totalPrice);
+    setOrderDetails(orderNo, fee, totalPrice);
     placeOrder(orderNo);
     deleteReviewCartData();
     Navigator.of(context).push(MaterialPageRoute(
@@ -55,15 +55,15 @@ class _PaymentSummaryState extends State<PaymentSummary> {
     ));
   }
 
-  setOrderDetails(orderNo,fee,totalNoFee) async {
+  setOrderDetails(orderNo, fee, totalNoFee) async {
     await FirebaseFirestore.instance
         .collection("Orders")
         .doc(orderNo.toString())
         .set({
-      "orderStatus": "Getting Ready",
+      "orderStatus": false,
       "fee": fee.toString(),
       "totalNoFee": totalNoFee.toString(),
-      "orderNo": orderNo.toString(),
+      "orderNo": "#$orderNo",
       "phone": userPhoneNo,
       "total": orderTotal,
       "uid": userUid,
@@ -134,7 +134,8 @@ class _PaymentSummaryState extends State<PaymentSummary> {
     ReviewCartProvider reviewCartProvider = Provider.of(context);
     reviewCartProvider.getReviewCartData();
     totalPrice = reviewCartProvider.getTotalPrice();
-    fee = (((totalPrice / 100 * 2) / 100 * 18) + (totalPrice / 100 * 2)).roundToDouble();
+    fee = (((totalPrice / 100 * 2) / 100 * 18) + (totalPrice / 100 * 2))
+        .roundToDouble();
     double totalPlusFee = (totalPrice + fee).roundToDouble();
     orderTotal = totalPlusFee.roundToDouble();
     return Scaffold(
@@ -147,119 +148,127 @@ class _PaymentSummaryState extends State<PaymentSummary> {
           style: TextStyle(fontSize: 18, color: Colors.black),
         ),
       ),
-      bottomNavigationBar: ListTile(
-          title: Text("Total Amount"),
-          subtitle: Text(
-            "$totalPrice",
-            style: TextStyle(
-              color: Colors.green[900],
-              fontWeight: FontWeight.bold,
-              fontSize: 17,
+      bottomNavigationBar: reviewCartProvider.getReviewCartDataList.isEmpty
+          ? ListTile()
+          : ListTile(
+              title: Text("Total Amount"),
+              subtitle: Text(
+                "$totalPrice",
+                style: TextStyle(
+                  color: Colors.green[900],
+                  fontWeight: FontWeight.bold,
+                  fontSize: 17,
+                ),
+              ),
+              trailing: RoundedButton(
+                  title: "Place Order",
+                  onPressed: () async {
+                    openCheckout(totalPlusFee.roundToDouble())
+                        .whenComplete(() {});
+                  },
+                  maxwidth: 250,
+                  minwidth: 200)),
+      body: reviewCartProvider.getReviewCartDataList.isEmpty
+          ? Center(
+              child: Text("NO DATA"),
+            )
+          : Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: ListView.builder(
+                itemCount: 1,
+                itemBuilder: (context, index) {
+                  return Column(
+                    children: [
+                      ExpansionTile(
+                        initiallyExpanded: true,
+                        textColor: Color(0xFFF06623),
+                        iconColor: Color(0xFFF06623),
+                        children:
+                            reviewCartProvider.getReviewCartDataList.map((e) {
+                          return OrderItem(
+                            e: e,
+                          );
+                        }).toList(),
+                        title: Text(
+                            "Order Items ${reviewCartProvider.getReviewCartDataList.length}"),
+                      ),
+                      ListTile(
+                        minVerticalPadding: 5,
+                        leading: Text(
+                          "Bill Details",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      ListTile(
+                        minVerticalPadding: 5,
+                        leading: Text(
+                          "item Total",
+                          style: TextStyle(
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                        trailing: Text(
+                          totalPrice.toString(),
+                          style: TextStyle(
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                      ),
+                      ListTile(
+                        minVerticalPadding: 5,
+                        leading: Text(
+                          "Taxes and Charges",
+                          style: TextStyle(
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                        trailing: Text(
+                          fee.toString(),
+                          style: TextStyle(
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                      ),
+                      ListTile(
+                        minVerticalPadding: 5,
+                        leading: Text(
+                          "To Pay",
+                          style: TextStyle(
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                        trailing: Text(
+                          orderTotal.toString(),
+                          style: TextStyle(
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                      ),
+                      // Divider(),
+                      // ListTile(
+                      //   leading: Text("Payment Options"),
+                      // ),
+                      // RadioListTile(
+                      //   value: AddressTypes.OnlinePayment,
+                      //   groupValue: myType,
+                      //   title: Text("OnlinePayment"),
+                      //   onChanged: (AddressTypes value) {
+                      //     setState(() {
+                      //       myType = value;
+                      //     });
+                      //   },
+                      //   secondary: Icon(
+                      //     Icons.devices_other,
+                      //     color: Colors.amber,
+                      //   ),
+                      // )
+                    ],
+                  );
+                },
+              ),
             ),
-          ),
-          trailing: RoundedButton(
-              title: "Place Order",
-              onPressed: () async {
-                openCheckout(totalPlusFee.roundToDouble()).whenComplete(() {});
-              },
-              maxwidth: 250,
-              minwidth: 200)),
-      body: Padding(
-        padding: const EdgeInsets.only(top: 10),
-        child: ListView.builder(
-          itemCount: 1,
-          itemBuilder: (context, index) {
-            return Column(
-              children: [
-                ExpansionTile(
-                  initiallyExpanded: true,
-                  textColor: Color(0xFFF06623),
-                  iconColor: Color(0xFFF06623),
-                  children: reviewCartProvider.getReviewCartDataList.map((e) {
-                    return OrderItem(
-                      e: e,
-                    );
-                  }).toList(),
-                  title: Text(
-                      "Order Items ${reviewCartProvider.getReviewCartDataList.length}"),
-                ),
-                ListTile(
-                  minVerticalPadding: 5,
-                  leading: Text(
-                    "Bill Details",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                ListTile(
-                  minVerticalPadding: 5,
-                  leading: Text(
-                    "item Total",
-                    style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                  trailing: Text(
-                    totalPrice.toString(),
-                    style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                ),
-                ListTile(
-                  minVerticalPadding: 5,
-                  leading: Text(
-                    "Taxes and Charges",
-                    style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                  trailing: Text(
-                    fee.toString(),
-                    style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                ),
-                ListTile(
-                  minVerticalPadding: 5,
-                  leading: Text(
-                    "To Pay",
-                    style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                  trailing: Text(
-                    orderTotal.toString(),
-                    style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                ),
-                // Divider(),
-                // ListTile(
-                //   leading: Text("Payment Options"),
-                // ),
-                // RadioListTile(
-                //   value: AddressTypes.OnlinePayment,
-                //   groupValue: myType,
-                //   title: Text("OnlinePayment"),
-                //   onChanged: (AddressTypes value) {
-                //     setState(() {
-                //       myType = value;
-                //     });
-                //   },
-                //   secondary: Icon(
-                //     Icons.devices_other,
-                //     color: Colors.amber,
-                //   ),
-                // )
-              ],
-            );
-          },
-        ),
-      ),
     );
   }
 }
