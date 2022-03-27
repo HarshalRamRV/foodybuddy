@@ -50,6 +50,8 @@ flutter:
     - assets/AFoodyBuddyLogo.png
     - assets/BFoodyBuddyLogo.png
     - assets/startPageBG.png
+    - assets/13679-fast-food-mobile-app-loading.json
+    - assets/58046-check-mark.json
 
 
 dev_dependencies:

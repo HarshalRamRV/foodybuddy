@@ -7,15 +7,15 @@ import 'package:foodybuddy/Views/OrderStatus.dart';
 class OrderProvider with ChangeNotifier {
   String orderNo = "";
   bool orderStatus = false;
-  String fee = "";
-  String totalNoFee = "";
+  double fee = 0;
+  double totalNoFee = 0;
   List<ReviewCartModel> ordersDataList = [];
   void getOrderData(orderNo) async {
     List<ReviewCartModel> newList = [];
 
     QuerySnapshot ordersValue = await FirebaseFirestore.instance
         .collection("Orders")
-        .doc(orderNo)
+        .doc("#$orderNo")
         .collection("myOrders")
         .get();
     ordersValue.docs.forEach((element) {
@@ -47,7 +47,7 @@ class OrderProvider with ChangeNotifier {
   setOrderStatus(orderNo) async {
     orderStatus = await FirebaseFirestore.instance
         .collection('Orders')
-        .doc(orderNo.toString())
+        .doc("#$orderNo")
         .get()
         .then((value) {
       return value
@@ -63,7 +63,7 @@ class OrderProvider with ChangeNotifier {
   setFee(orderNo) async {
     fee = await FirebaseFirestore.instance
         .collection('Orders')
-        .doc(orderNo.toString())
+        .doc("#$orderNo")
         .get()
         .then((value) {
       return value.data()!['fee']; // Access your after your get the data
@@ -71,14 +71,14 @@ class OrderProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  String get getFee {
+  double get getFee {
     return fee;
   }
 
   setTotalNoFee(orderNo) async {
     totalNoFee = await FirebaseFirestore.instance
         .collection('Orders')
-        .doc(orderNo.toString())
+        .doc("#$orderNo")
         .get()
         .then((value) {
       return value
@@ -86,7 +86,7 @@ class OrderProvider with ChangeNotifier {
     });
     notifyListeners();
   }
-  String get getTotalNoFee {
+  double get getTotalNoFee {
     return totalNoFee;
   }
 }

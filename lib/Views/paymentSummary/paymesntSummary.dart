@@ -58,11 +58,11 @@ class _PaymentSummaryState extends State<PaymentSummary> {
   setOrderDetails(orderNo, fee, totalNoFee) async {
     await FirebaseFirestore.instance
         .collection("Orders")
-        .doc(orderNo.toString())
+        .doc("#$orderNo")
         .set({
       "orderStatus": false,
-      "fee": fee.toString(),
-      "totalNoFee": totalNoFee.toString(),
+      "fee": fee,
+      "totalNoFee": totalNoFee,
       "orderNo": "#$orderNo",
       "phone": userPhoneNo,
       "total": orderTotal,
@@ -82,7 +82,7 @@ class _PaymentSummaryState extends State<PaymentSummary> {
     reviewCartValue.docs.forEach((element) async {
       await FirebaseFirestore.instance
           .collection("Orders")
-          .doc(orderNo.toString())
+          .doc("#$orderNo")
           .collection("myOrders")
           .add({
         'image': element.get("image"),

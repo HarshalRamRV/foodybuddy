@@ -1,4 +1,3 @@
-
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:foodybuddy/Views/SplashScreen.dart';
@@ -109,6 +108,7 @@ class _AccountState extends State<Account> {
                 SharedPreferences sharedPreferences =
                     await SharedPreferences.getInstance();
                 sharedPreferences.remove('uid');
+                sharedPreferences.remove('phoneNumber');
                 Navigator.of(context, rootNavigator: true)
                     .pushReplacementNamed(AuthScreen.routeArgs);
               },
