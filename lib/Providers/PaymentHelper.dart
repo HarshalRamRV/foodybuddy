@@ -5,7 +5,6 @@ import 'package:razorpay_flutter/razorpay_flutter.dart';
 class PaymentHelper with ChangeNotifier {
   TimeOfDay deliveryTime = TimeOfDay.now();
   int orderNo = 0;
-  int get getOrderNo => orderNo;
   bool paymentSuccess = false;
   bool get getPaymentSuccess => paymentSuccess;
 
@@ -47,12 +46,15 @@ class PaymentHelper with ChangeNotifier {
     notifyListeners();
   }
 
-  Future getOrderNumber() async {
+  Future setOrderNumber() async {
     await FirebaseFirestore.instance.collection("Orders").get().then((value) {
       var count = 0;
       count = value.docs.length;
       orderNo = count + 1;
       notifyListeners();
     });
+  }
+    int get getOrderNo {
+    return orderNo;
   }
 }

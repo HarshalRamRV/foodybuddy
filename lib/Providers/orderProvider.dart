@@ -5,6 +5,7 @@ import 'package:foodybuddy/Models/reviewCartModal.dart';
 import 'package:foodybuddy/Views/OrderStatus.dart';
 
 class OrderProvider with ChangeNotifier {
+    int orderNoInt = 0;
   String orderNo = "";
   bool orderStatus = false;
   double fee = 0;

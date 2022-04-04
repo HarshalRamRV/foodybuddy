@@ -20,7 +20,9 @@ class PaymentSummary extends StatefulWidget {
 }
 
 class _PaymentSummaryState extends State<PaymentSummary> {
+  
   Razorpay razorpay = Razorpay();
+  var orderNo;
   var fee;
   var totalPrice;
   var orderTotal;
@@ -43,7 +45,8 @@ class _PaymentSummaryState extends State<PaymentSummary> {
   }
 
   void handlePaymentSucess(PaymentSuccessResponse response) async {
-    var orderNo = Provider.of<PaymentHelper>(context, listen: false).getOrderNo;
+    Provider.of<PaymentHelper>(context, listen: false).setOrderNumber();
+    orderNo = Provider.of<PaymentHelper>(context, listen: false).getOrderNo;
     print("Payment Success");
     setOrderDetails(orderNo, fee, totalPrice);
     placeOrder(orderNo);
@@ -56,10 +59,7 @@ class _PaymentSummaryState extends State<PaymentSummary> {
   }
 
   setOrderDetails(orderNo, fee, totalNoFee) async {
-    await FirebaseFirestore.instance
-        .collection("Orders")
-        .doc("#$orderNo")
-        .set({
+    await FirebaseFirestore.instance.collection("Orders").doc("#$orderNo").set({
       "orderStatus": false,
       "fee": fee,
       "totalNoFee": totalNoFee,
@@ -130,7 +130,6 @@ class _PaymentSummaryState extends State<PaymentSummary> {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<PaymentHelper>(context, listen: false).getOrderNumber();
     ReviewCartProvider reviewCartProvider = Provider.of(context);
     reviewCartProvider.getReviewCartData();
     totalPrice = reviewCartProvider.getTotalPrice();

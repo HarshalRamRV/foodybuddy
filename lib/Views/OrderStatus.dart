@@ -26,7 +26,7 @@ class OrderStatus extends StatelessWidget {
   Widget build(BuildContext context) {
     // Provider.of<OrderProvider>(context, listen: false).getOrderNo(context,orderNo.toString());
     // Provider.of<OrderProvider>(context, listen: false).getOrderSat();
-    Provider.of<PaymentHelper>(context, listen: false).getOrderNumber();
+    Provider.of<PaymentHelper>(context, listen: false).setOrderNumber();
     OrderProvider orderProvider = Provider.of(context);
     orderProvider.getOrderData(orderNo.toString());
     orderProvider.setOrderStatus(orderNo.toString());
