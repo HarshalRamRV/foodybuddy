@@ -1,5 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:foodybuddy/Providers/Calculations.dart';
 import 'package:foodybuddy/Providers/auth_provider.dart';
 import 'package:foodybuddy/Providers/PaymentHelper.dart';
@@ -16,6 +18,22 @@ import 'Helpers/NavBar.dart';
 import 'Helpers/Middle.dart';
 import 'Services/ManageData.dart';
 
+const AndroidNotificationChannel channel = AndroidNotificationChannel(
+    'high_importance_channel', // id
+    'High Importance Notifications', // title
+    importance: Importance.high,
+    playSound: true);
+
+// flutter local notification
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
+
+// firebase background message handler
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+  print('A Background message just showed up :  ${message.messageId}');
+}
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -28,9 +46,21 @@ void main() async {
       //     appId: "1:724651269084:web:42cd9aa100ae14b5530d19" // Your projectId
       //     ),
       );
-  // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-  //     statusBarBrightness: Brightness.light,
-  //     statusBarIconBrightness: Brightness.dark));
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
+// Firebase local notification plugin
+  await flutterLocalNotificationsPlugin
+      .resolvePlatformSpecificImplementation<
+          AndroidFlutterLocalNotificationsPlugin>()
+      ?.createNotificationChannel(channel);
+
+//Firebase messaging
+  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+    alert: true,
+    badge: true,
+    sound: true,
+  );
+
   runApp(MyApp());
 }
 
@@ -39,6 +69,26 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      print('A new messageopen app event was published');
+      RemoteNotification? notification = message.notification;
+      AndroidNotification? android = message.notification?.android;
+      if (notification != null && android != null) {
+        showDialog(
+            context: context,
+            builder: (_) {
+              return AlertDialog(
+                title: Text(notification.title.toString()),
+                content: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [Text(notification.body.toString())],
+                  ),
+                ),
+              );
+            });
+      }
+    });
     return MultiProvider(
       providers: [
         //                 ChangeNotifierProvider<OrderProvider>(
@@ -62,25 +112,25 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           visualDensity: VisualDensity.adaptivePlatformDensity,
-              primaryColor:  Color(0xFFF06623),
-  //             splashColor: Color(0xFFF06623),
-  //             hintColor:Color(0xFFF06623),
-  //             focusColor: Color(0xFFF06623),
-  //             highlightColor: Color(0xFFF06623),
-  //             textSelectionColor: Color(0xFFF06623),
-  //             textSelectionHandleColor:Color(0xFFF06623),
-  //             accentColor:Color(0xFFF06623),
-  //              primaryColorDark:Color(0xFFF06623),
-  //  hoverColor:Color(0xFFF06623),
-  //  shadowColor:Color(0xFFF06623),
-  //  canvasColor:Color(0xFFF06623),
-  //  scaffoldBackgroundColor:Color(0xFFF06623),
-  //  bottomAppBarColor:Color(0xFFF06623),
-  //  cardColor:Color(0xFFF06623),
-  //  dividerColor:Color(0xFFF06623),
-  //  selectedRowColor:Color(0xFFF06623),
-  //  unselectedWidgetColor:Color(0xFFF06623),
-  //  disabledColor:Color(0xFFF06623),
+          primaryColor: Color(0xFFF06623),
+          //             splashColor: Color(0xFFF06623),
+          //             hintColor:Color(0xFFF06623),
+          //             focusColor: Color(0xFFF06623),
+          //             highlightColor: Color(0xFFF06623),
+          //             textSelectionColor: Color(0xFFF06623),
+          //             textSelectionHandleColor:Color(0xFFF06623),
+          //             accentColor:Color(0xFFF06623),
+          //              primaryColorDark:Color(0xFFF06623),
+          //  hoverColor:Color(0xFFF06623),
+          //  shadowColor:Color(0xFFF06623),
+          //  canvasColor:Color(0xFFF06623),
+          //  scaffoldBackgroundColor:Color(0xFFF06623),
+          //  bottomAppBarColor:Color(0xFFF06623),
+          //  cardColor:Color(0xFFF06623),
+          //  dividerColor:Color(0xFFF06623),
+          //  selectedRowColor:Color(0xFFF06623),
+          //  unselectedWidgetColor:Color(0xFFF06623),
+          //  disabledColor:Color(0xFFF06623),
         ),
         home: SplashScreen(),
         routes: {

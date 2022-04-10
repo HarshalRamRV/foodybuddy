@@ -1,9 +1,15 @@
 // ignore_for_file: deprecated_member_use, unused_local_variable
-
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:foodybuddy/Navigation/tab_navigator.dart';
 import 'package:foodybuddy/Providers/reviewCart.dart';
+import 'package:foodybuddy/Views/NotificationService.dart';
+import 'package:foodybuddy/Views/Notifications.dart';
 import 'package:provider/provider.dart';
+
+import '../main.dart';
 
 class Mainscreen extends StatefulWidget {
   static const routeArgs = '/main-screen';
@@ -13,6 +19,74 @@ class Mainscreen extends StatefulWidget {
 }
 
 class _MainscreenState extends State<Mainscreen> {
+  //   String notificationTitle = 'No Title';
+  // String notificationBody = 'No Body';
+  // String notificationData = 'No Data';
+
+  // @override
+  // void initState() {
+  //   final firebaseMessaging = FCM();
+  //   firebaseMessaging.setNotifications();
+
+  //   firebaseMessaging.streamCtlr.stream.listen(_changeData);
+  //   firebaseMessaging.bodyCtlr.stream.listen(_changeBody);
+  //   firebaseMessaging.titleCtlr.stream.listen(_changeTitle);
+
+  //   super.initState();
+  // }
+
+  // _changeData(String msg) => setState(() => notificationData = msg);
+  // _changeBody(String msg) => setState(() => notificationBody = msg);
+  // _changeTitle(String msg) => setState(() => notificationTitle = msg);
+  int _counter = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    //  om message app open
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      RemoteNotification? notification = message.notification;
+      AndroidNotification? android = message.notification?.android;
+      if (notification != null && android != null) {
+        flutterLocalNotificationsPlugin.show(
+            notification.hashCode,
+            notification.title,
+            notification.body,
+            NotificationDetails(
+              android: AndroidNotificationDetails(
+                channel.id,
+                channel.name,
+                color: Colors.blue,
+                playSound: true,
+                icon: '@mipmap/ic_lancher',
+              ),
+            ));
+      }
+    });
+    //Message for Background
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      print('A new messageopen app event was published');
+      RemoteNotification? notification = message.notification;
+      AndroidNotification? android = message.notification?.android;
+      if (notification != null && android != null) {
+        showDialog(
+            context: context,
+            builder: (_) {
+              return AlertDialog(
+                title: Text(notification.title.toString()),
+                content: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [Text(notification.body.toString())],
+                  ),
+                ),
+              );
+            });
+      }
+    });
+  }
+
+
   String _currentPage = "Page1";
   List<String> pageKeys = ["Page1", "Page2", "Page3", "Page4", "Page5"];
   Map<String, GlobalKey<NavigatorState>> _navigatorKeys = {
@@ -81,14 +155,12 @@ class _MainscreenState extends State<Mainscreen> {
               ),
               BottomNavigationBarItem(
                   icon: Icon(Icons.search), label: 'Search'),
-                                BottomNavigationBarItem(
+              BottomNavigationBarItem(
                   icon: Icon(Icons.shopping_cart), label: 'Cart'),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.notifications),
-                  label: 'Notifications'),
+                  icon: Icon(Icons.notifications), label: 'Notifications'),
               BottomNavigationBarItem(
                   icon: Icon(Icons.account_circle), label: 'Account'),
-                  
             ],
           ),
         ));

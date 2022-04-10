@@ -15,6 +15,7 @@ dependencies:
   firebase_auth: ^3.3.5
   firebase_core: ^1.11.0
   firebase_analytics: ^9.0.5
+  firebase_messaging: ^11.2.12
 
   cupertino_icons: ^1.0.2
   eva_icons_flutter: ^3.0.2
@@ -29,11 +30,14 @@ dependencies:
   lottie: ^1.2.1
   firebase_storage: ^10.2.5
   get: ^4.6.1
+  get_it: ^7.2.0
   country_code_picker: ^2.0.2
   shared_preferences: ^2.0.13
   shared_preferences_web: ^2.0.3
   razorpay_flutter: ^1.2.3
   url_launcher: ^6.0.20
+  flutter_local_notifications: ^9.4.0
+
 
 
 
