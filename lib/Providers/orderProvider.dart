@@ -1,11 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:foodybuddy/Models/reviewCartModal.dart';
-import 'package:foodybuddy/Views/OrderStatus.dart';
 
 class OrderProvider with ChangeNotifier {
-    int orderNoInt = 0;
+  bool orderConfirmation = false;
+  int orderNoInt = 0;
   String orderNo = "";
   bool orderStatus = false;
   double fee = 0;
@@ -61,6 +60,22 @@ class OrderProvider with ChangeNotifier {
     return orderStatus;
   }
 
+  setOrderConfirmation(orderNo) async {
+    orderConfirmation = await FirebaseFirestore.instance
+        .collection('Orders')
+        .doc("#$orderNo")
+        .get()
+        .then((value) {
+      return value
+          .data()!['orderConfirmation']; // Access your after your get the data
+    });
+    notifyListeners();
+  }
+
+  bool get getOrderConfirmation {
+    return orderConfirmation;
+  }
+
   setFee(orderNo) async {
     fee = await FirebaseFirestore.instance
         .collection('Orders')
@@ -82,11 +97,11 @@ class OrderProvider with ChangeNotifier {
         .doc("#$orderNo")
         .get()
         .then((value) {
-      return value
-          .data()!['totalNoFee']; // Access your after your get the data
+      return value.data()!['totalNoFee']; // Access your after your get the data
     });
     notifyListeners();
   }
+
   double get getTotalNoFee {
     return totalNoFee;
   }

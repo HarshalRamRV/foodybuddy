@@ -61,6 +61,7 @@ class _PaymentSummaryState extends State<PaymentSummary> {
   setOrderDetails(orderNo, fee, totalNoFee) async {
     await FirebaseFirestore.instance.collection("Orders").doc("#$orderNo").set({
       "orderStatus": false,
+      "orderConfirmation": false,
       "fee": fee,
       "totalNoFee": totalNoFee,
       "orderNo": "#$orderNo",

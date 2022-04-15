@@ -30,6 +30,7 @@ class OrderStatus extends StatelessWidget {
     OrderProvider orderProvider = Provider.of(context);
     orderProvider.getOrderData(orderNo.toString());
     orderProvider.setOrderStatus(orderNo.toString());
+    orderProvider.setOrderConfirmation(orderNo.toString());
     orderProvider.setFee(orderNo.toString());
     orderProvider.setTotalNoFee(orderNo.toString());
     double totalPrice = orderProvider.getTotalPrice();
@@ -61,9 +62,35 @@ class OrderStatus extends StatelessWidget {
                   itemCount: 1,
                   itemBuilder: (context, index) {
                     return Column(children: [
-                      orderProvider.getOrderStatus == false
-                          ? Center(
+                      orderProvider.getOrderConfirmation == false ?  Center(
                               child: Column(children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 10),
+                                  child: Text(
+                                    "Confirmating Your Order",
+                                    softWrap: true,
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                                                    width:
+                                      MediaQuery.of(context).size.width,
+                                  height:
+                                      MediaQuery.of(context).size.height - 550,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Lottie.asset(
+                                        'assets/99603-yellow-dots-flicker.json',
+                                        ),
+                                  ),
+                                ),
+                              ]),
+                            ): Center(
+                      child: orderProvider.getOrderStatus == false
+                          ? Column(children: [
                                 Padding(
                                   padding: const EdgeInsets.only(top: 10),
                                   child: Text(
@@ -86,10 +113,9 @@ class OrderStatus extends StatelessWidget {
                                         'assets/21421-waiting.json',),
                                   ),
                                 ),
-                              ]),
-                            )
-                          : Center(
-                              child: Column(children: [
+                              ])
+                            
+                          : Column(children: [
                                 Padding(
                                   padding: const EdgeInsets.only(top: 10),
                                   child: Text(
@@ -111,7 +137,7 @@ class OrderStatus extends StatelessWidget {
                                       repeat: false),
                                 ),
                               ]),
-                            ),
+                      ),
                       ExpansionTile(
                         textColor: Color(0xFFF06623),
                         iconColor: Color(0xFFF06623),

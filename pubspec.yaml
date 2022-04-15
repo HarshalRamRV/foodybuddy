@@ -53,6 +53,8 @@ flutter:
     - assets/13679-fast-food-mobile-app-loading.json
     - assets/58046-check-mark.json
     - assets/21421-waiting.json
+    - assets/99603-yellow-dots-flicker.json
+
 
 
 dev_dependencies:
