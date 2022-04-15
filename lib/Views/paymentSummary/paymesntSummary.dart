@@ -20,7 +20,6 @@ class PaymentSummary extends StatefulWidget {
 }
 
 class _PaymentSummaryState extends State<PaymentSummary> {
-  
   Razorpay razorpay = Razorpay();
   var orderNo;
   var fee;
@@ -47,6 +46,7 @@ class _PaymentSummaryState extends State<PaymentSummary> {
   void handlePaymentSucess(PaymentSuccessResponse response) async {
     Provider.of<PaymentHelper>(context, listen: false).setOrderNumber();
     orderNo = Provider.of<PaymentHelper>(context, listen: false).getOrderNo;
+    print(orderNo);
     print("Payment Success");
     setOrderDetails(orderNo, fee, totalPrice);
     placeOrder(orderNo);
@@ -113,10 +113,6 @@ class _PaymentSummaryState extends State<PaymentSummary> {
       'amount': totalPlusFee * 100,
       'name': userPhoneNo.toString().substring(3),
       'description': 'Payment',
-      'prefill': {
-        'contact': userPhoneNo.toString().substring(3),
-        'email': 'ramharshal03@gmail.com'
-      },
       'external': {
         'wallets': ['paytm']
       }
@@ -130,6 +126,7 @@ class _PaymentSummaryState extends State<PaymentSummary> {
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<PaymentHelper>(context, listen: false).setOrderNumber();
     ReviewCartProvider reviewCartProvider = Provider.of(context);
     reviewCartProvider.getReviewCartData();
     totalPrice = reviewCartProvider.getTotalPrice();

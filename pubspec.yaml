@@ -52,6 +52,7 @@ flutter:
     - assets/startPageBG.png
     - assets/13679-fast-food-mobile-app-loading.json
     - assets/58046-check-mark.json
+    - assets/21421-waiting.json
 
 
 dev_dependencies:

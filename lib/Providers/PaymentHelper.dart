@@ -50,11 +50,13 @@ class PaymentHelper with ChangeNotifier {
     await FirebaseFirestore.instance.collection("Orders").get().then((value) {
       var count = 0;
       count = value.docs.length;
-      orderNo = count + 1;
+      orderNo = count;
+      print(orderNo);
       notifyListeners();
     });
   }
-    int get getOrderNo {
+
+  int get getOrderNo {
     return orderNo;
   }
 }

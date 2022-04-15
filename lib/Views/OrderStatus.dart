@@ -79,9 +79,12 @@ class OrderStatus extends StatelessWidget {
                                                                     width:
                                       MediaQuery.of(context).size.width,
                                   height:
-                                      MediaQuery.of(context).size.height - 450,
-                                  child: Lottie.asset(
-                                      'assets/13679-fast-food-mobile-app-loading.json',),
+                                      MediaQuery.of(context).size.height - 500,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(25.0),
+                                    child: Lottie.asset(
+                                        'assets/21421-waiting.json',),
+                                  ),
                                 ),
                               ]),
                             )
