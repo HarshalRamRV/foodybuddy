@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class AdminDetailsHelpers with ChangeNotifier {
   bool orderStatus = false;
-  bool orderConfirmation = false;
+  bool? orderConfirmation = false;
   setOrderStatusData(orderNo) async {
     orderStatus = await FirebaseFirestore.instance
         .collection('Orders')
@@ -49,19 +49,25 @@ class AdminDetailsHelpers with ChangeNotifier {
         await FirebaseFirestore.instance.collection(collection).where("category",isEqualTo:category.toString() ).get();
     return querySnapshot.docs;
   }
-    setOrderConfirmation(orderNo) async {
+    Future setOrderConfirmationData(orderNo) async {
     orderConfirmation = await FirebaseFirestore.instance
         .collection('Orders')
         .doc("#$orderNo")
         .get()
         .then((value) {
       return value
-          .data()!['orderConfirmation']; // Access your after your get the data
+          .data()?['orderConfirmation']; // Access your after your get the data
     });
     notifyListeners();
   }
-
-  bool get getOrderConfirmation {
+Future setOrderConfirmationTrue(
+      BuildContext context, dynamic orderId, dynamic orderConfirmation) async {
+    return FirebaseFirestore.instance
+        .collection('Orders')
+        .doc(orderId)
+        .update({'orderConfirmation': orderConfirmation});
+  }
+  bool? get getOrderConfirmation {
     return orderConfirmation;
   }
 }

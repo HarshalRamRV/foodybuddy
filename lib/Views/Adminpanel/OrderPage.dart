@@ -6,20 +6,35 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:foodybuddy/Views/Adminpanel/AdminHomepage.dart';
 import 'package:foodybuddy/Services/AdminDetailsHelpers.dart';
 import 'package:foodybuddy/widgets/ItemWidget.dart';
+import 'package:foodybuddy/widgets/rounded_button.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 class OrderPage extends StatelessWidget {
-  var orderNo;
+  final orderNo;
   final QueryDocumentSnapshot queryDocumentSnapshot;
   OrderPage({required this.orderNo, required this.queryDocumentSnapshot});
-  bool orderCompleted = false;
   @override
   Widget build(BuildContext context) {
+    Provider.of<AdminDetailsHelpers>(context,listen: false).setOrderConfirmationData(orderNo.toString());
+    AdminDetailsHelpers adminDetailsHelpers = Provider.of(context, listen: false);
+    adminDetailsHelpers.setOrderConfirmationData(orderNo.toString());
+    bool orderCompleted = true;
+    bool orderConfirmation = true;
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton:
-          floatingActionButton(context, orderNo, orderCompleted),
+      floatingActionButton: 
+      adminDetailsHelpers.getOrderConfirmation == false
+          ? RoundedButton(
+              title: "Confirm Order",
+              maxwidth: 1000,
+              minwidth: 400,
+              onPressed: () {
+                adminDetailsHelpers.setOrderConfirmationTrue(
+                    context, orderNo, orderConfirmation);
+              },
+            )
+          : floatingActionButton(context, orderNo, orderCompleted),
       backgroundColor: Color(0xfcfcfcfc),
       appBar: AppBar(
         foregroundColor: Color(0xFFF06623),
@@ -37,12 +52,13 @@ class OrderPage extends StatelessWidget {
           children: [
             orderInfo(context),
             getdata(context, orderNo),
-            // orderData(context, widget.orderNo),
+            // orderData(context, orderNo),
           ],
         ),
       ),
     );
   }
+
   Widget orderInfo(BuildContext context) {
     return Container(
       child: Column(
@@ -156,43 +172,43 @@ Widget getdata(BuildContext context, orderNo) {
 }
 
 Widget getcatpage(BuildContext context, String collection, String category) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        child: FutureBuilder(
-          future: Provider.of<AdminDetailsHelpers>(context, listen: false)
-              .fetchCatData(collection,category),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
-                child: Lottie.asset('assets/foodanimation.json'),
-              );
-            } else {
-              return ListView.builder(
-                padding: EdgeInsets.zero,
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: snapshot.data.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return ItemWidget(
-                        itemName: snapshot.data[index].data()['name'],
-                        img: snapshot.data[index].data()['image'],
-                        category: snapshot.data[index].data()['category'],
-                        price: snapshot.data[index].data()['price'].toString(),
-                      );
-                },
-              );
-            }
-          },
-        ),
+  return Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: Container(
+      child: FutureBuilder(
+        future: Provider.of<AdminDetailsHelpers>(context, listen: false)
+            .fetchCatData(collection, category),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: Lottie.asset('assets/foodanimation.json'),
+            );
+          } else {
+            return ListView.builder(
+              padding: EdgeInsets.zero,
+              physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: snapshot.data.length,
+              itemBuilder: (BuildContext context, int index) {
+                return ItemWidget(
+                  itemName: snapshot.data[index].data()['name'],
+                  img: snapshot.data[index].data()['image'],
+                  category: snapshot.data[index].data()['category'],
+                  price: snapshot.data[index].data()['price'].toString(),
+                );
+              },
+            );
+          }
+        },
       ),
-    );
-  }
+    ),
+  );
+}
 
 Widget floatingActionButton(BuildContext context, orderNo, orderCompleted) {
   bool orderStatus = true;
-  return Provider.of<AdminDetailsHelpers>(context, listen: false).getOrderConfirmation == false ? FloatingActionButton(onPressed: () {  },): FloatingActionButton(
-       backgroundColor: Color(0xFFF06623),
+  return FloatingActionButton(
+    backgroundColor: Color(0xFFF06623),
     child: Icon(FontAwesomeIcons.check, color: Colors.white),
     onPressed: () {
       Provider.of<AdminDetailsHelpers>(context, listen: false)

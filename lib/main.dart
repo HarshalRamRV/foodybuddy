@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:foodybuddy/Providers/orderProvider.dart';
 import 'package:foodybuddy/Views/Adminpanel/AdminHomepage.dart';
 import 'package:foodybuddy/Services/AdminDetailsHelpers.dart';
 import 'package:foodybuddy/Providers/auth_provider.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider.value(value: OrderProvider()),
         ChangeNotifierProvider.value(value: AdminDetailsHelpers()),
         ChangeNotifierProvider.value(value: AuthProvider()),
       ],
@@ -49,7 +51,7 @@ class MyApp extends StatelessWidget {
           VerifyScreen.routeArgs: (ctx) => VerifyScreen(),
           Mainscreen.routeArgs: (ctx) => Mainscreen(),
           AuthScreen.routeArgs: (ctx) => AuthScreen(),
-                    AdminHomePage.routeArgs: (ctx) => AdminHomePage()
+          AdminHomePage.routeArgs: (ctx) => AdminHomePage()
         },
       ),
     );
