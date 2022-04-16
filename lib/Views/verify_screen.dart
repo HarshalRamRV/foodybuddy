@@ -2,9 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:foodybuddy/Adminpanel/AdminHomepage.dart';
+import 'package:foodybuddy/Views/Adminpanel/AdminHomepage.dart';
 import 'package:foodybuddy/Providers/auth_provider.dart';
-import 'package:foodybuddy/Views/Mainpage.dart';
 import 'package:foodybuddy/widgets/rounded_button.dart';
 import 'package:foodybuddy/widgets/user_text_field.dart';
 import 'package:provider/provider.dart';

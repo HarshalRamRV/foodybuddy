@@ -1,11 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AdminDetailsHelpers with ChangeNotifier {
   bool orderStatus = false;
-
+  bool orderConfirmation = false;
   setOrderStatusData(orderNo) async {
     orderStatus = await FirebaseFirestore.instance
         .collection('Orders')
@@ -45,5 +43,25 @@ class AdminDetailsHelpers with ChangeNotifier {
         .collection('Orders')
         .doc(orderId)
         .update({'orderStatus': orderStatus});
+  }
+    Future fetchCatData(String collection, String category) async {
+    QuerySnapshot querySnapshot =
+        await FirebaseFirestore.instance.collection(collection).where("category",isEqualTo:category.toString() ).get();
+    return querySnapshot.docs;
+  }
+    setOrderConfirmation(orderNo) async {
+    orderConfirmation = await FirebaseFirestore.instance
+        .collection('Orders')
+        .doc("#$orderNo")
+        .get()
+        .then((value) {
+      return value
+          .data()!['orderConfirmation']; // Access your after your get the data
+    });
+    notifyListeners();
+  }
+
+  bool get getOrderConfirmation {
+    return orderConfirmation;
   }
 }

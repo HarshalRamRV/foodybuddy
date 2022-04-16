@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:foodybuddy/Adminpanel/AdminHomepage.dart';
+import 'package:foodybuddy/Views/Adminpanel/AdminHomepage.dart';
 
 class TabNavigatorRoutes {
   static const String root = '/';

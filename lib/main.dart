@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:foodybuddy/Adminpanel/AdminHomepage.dart';
+import 'package:foodybuddy/Views/Adminpanel/AdminHomepage.dart';
 import 'package:foodybuddy/Services/AdminDetailsHelpers.dart';
 import 'package:foodybuddy/Providers/auth_provider.dart';
 import 'package:foodybuddy/Views/Mainpage.dart';
