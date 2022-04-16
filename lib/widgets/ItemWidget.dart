@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:foodybuddy/widgets/count.dart';
 
 class ItemWidget extends StatelessWidget {
   final itemName;
@@ -15,8 +14,6 @@ class ItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.all(Radius.circular(0.0)),
@@ -26,7 +23,6 @@ class ItemWidget extends StatelessWidget {
           ]),
       margin: EdgeInsets.symmetric(horizontal: 0.0, vertical: 5.0),
       child: Row(
-        mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -44,13 +40,12 @@ class ItemWidget extends StatelessWidget {
               ),
             ],
           ),
-          Stack(
-            //         mainAxisSize: MainAxisSize.max,
-            // mainAxisAlignment: MainAxisAlignment.start,
-            // crossAxisAlignment: CrossAxisAlignment.start,
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                width: MediaQuery.of(context).size.width - 145,
+                width: 215.0,
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 8.0),
                   child: Column(
@@ -60,9 +55,8 @@ class ItemWidget extends StatelessWidget {
                       Text(
                         itemName,
                         textAlign: TextAlign.left,
-                        softWrap: true,
                         style: TextStyle(
-                            fontSize: 18.0,
+                            fontSize: 15.0,
                             fontWeight: FontWeight.bold,
                             color: Colors.black),
                       ),
@@ -70,7 +64,7 @@ class ItemWidget extends StatelessWidget {
                         category,
                         textAlign: TextAlign.left,
                         style: TextStyle(
-                            fontSize: 17.0,
+                            fontSize: 13.0,
                             fontWeight: FontWeight.bold,
                             color: Colors.grey),
                       ),
@@ -78,25 +72,34 @@ class ItemWidget extends StatelessWidget {
                         children: [
                           Icon(
                             FontAwesomeIcons.rupeeSign,
-                            size: 18.0,
+                            size: 14.0,
                           ),
                           Text(
                             price,
                             style: TextStyle(
-                                fontSize: 18.0,
+                                fontSize: 14.0,
                                 fontWeight: FontWeight.w400,
                                 color: Colors.black),
                           ),
                         ],
                       ),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: Count(
-                          productName: itemName,
-                          productImage: img,
-                          productPrice: int.parse(price),
-                          productCategory: category,
-                        ),
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      Row(
+                        children: [
+                          // ElevatedButton(
+                          //   style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Color(0xFFF06623))),
+                          //   onPressed: onPressed,
+                          //   child: Text(
+                          //     "Add to Cart",
+                          //     style: TextStyle(
+                          //         fontSize: 16.0,
+                          //         fontWeight: FontWeight.w400,
+                          //         color: Colors.white),
+                          //   ),
+                          // ),
+                        ],
                       ),
                     ],
                   ),

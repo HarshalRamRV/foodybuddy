@@ -45,7 +45,7 @@ class BottomNavigation extends StatelessWidget {
         color: _colorTabMatching(item: tabItem),
       ),
       label: 
-        text!
+        text!,
     );
   }
 

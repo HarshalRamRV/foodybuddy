@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:foodybuddy/Adminpanel/AdminHomepage.dart';
 import 'package:foodybuddy/Providers/auth_provider.dart';
 import 'package:foodybuddy/Views/Mainpage.dart';
 import 'package:foodybuddy/widgets/rounded_button.dart';
@@ -52,7 +53,7 @@ class VerifyScreen extends StatelessWidget {
       Provider.of<AuthProvider>(context, listen: false)
           .verifyOTP(controller.text.toString())
           .then((_) {
-        Navigator.of(context).pushReplacementNamed(Mainscreen.routeArgs);
+        Navigator.of(context).pushNamed(AdminHomePage.routeArgs);
       }).catchError((e) {
         String errorMsg = 'Cant authentiate you Right now, Try again later!';
         if (e.toString().contains("ERROR_SESSION_EXPIRED")) {
@@ -107,7 +108,7 @@ class VerifyScreen extends StatelessWidget {
                     title: 'Verify Code',
                     onPressed: () {
                       verifyOTP(context);
-                    }, maxwidth: double.parse('1000'), minwidth: double.parse('400'),
+                    }, maxwidth: 1000.0, minwidth: 400.0,
                   ),
                 ),
                 Align(

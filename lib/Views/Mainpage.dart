@@ -1,13 +1,10 @@
-// ignore_for_file: deprecated_member_use, unused_local_variable
+// ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
 import 'package:foodybuddy/Navigation/tab_navigator.dart';
-import 'package:foodybuddy/Providers/reviewCart.dart';
-import 'package:provider/provider.dart';
 
 class Mainscreen extends StatefulWidget {
   static const routeArgs = '/main-screen';
-
   @override
   _MainscreenState createState() => _MainscreenState();
 }
@@ -37,7 +34,6 @@ class _MainscreenState extends State<Mainscreen> {
 
   @override
   Widget build(BuildContext context) {
-    ReviewCartProvider reviewCartProvider = Provider.of(context);
     return WillPopScope(
         onWillPop: () async {
           final isFirstRouteInCurrentTab =
@@ -88,7 +84,6 @@ class _MainscreenState extends State<Mainscreen> {
                   label: 'Notifications'),
               BottomNavigationBarItem(
                   icon: Icon(Icons.account_circle), label: 'Account'),
-                  
             ],
           ),
         ));

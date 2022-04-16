@@ -14,15 +14,12 @@ dependencies:
   cloud_firestore: ^3.1.6
   firebase_auth: ^3.3.5
   firebase_core: ^1.11.0
-  firebase_analytics: ^9.0.5
+  
 
   cupertino_icons: ^1.0.2
   eva_icons_flutter: ^3.0.2
   flutter_secure_storage: ^5.0.2
   font_awesome_flutter: ^9.2.0
-  geocoder: ^0.2.1
-  geolocator: ^8.0.3
-  google_maps_flutter: ^2.1.1
   google_sign_in: ^5.2.3
   page_transition: ^2.0.4
   provider: ^6.0.2
@@ -32,9 +29,6 @@ dependencies:
   country_code_picker: ^2.0.2
   shared_preferences: ^2.0.13
   shared_preferences_web: ^2.0.3
-  razorpay_flutter: ^1.2.3
-  url_launcher: ^6.0.20
-
 
 
 flutter:
@@ -50,11 +44,7 @@ flutter:
     - assets/AFoodyBuddyLogo.png
     - assets/BFoodyBuddyLogo.png
     - assets/startPageBG.png
-    - assets/13679-fast-food-mobile-app-loading.json
     - assets/58046-check-mark.json
-    - assets/21421-waiting.json
-    - assets/99603-yellow-dots-flicker.json
-
 
 
 dev_dependencies:

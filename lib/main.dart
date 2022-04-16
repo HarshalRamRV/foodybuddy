@@ -1,20 +1,14 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:foodybuddy/Providers/Calculations.dart';
+import 'package:foodybuddy/Adminpanel/AdminHomepage.dart';
+import 'package:foodybuddy/Services/AdminDetailsHelpers.dart';
 import 'package:foodybuddy/Providers/auth_provider.dart';
-import 'package:foodybuddy/Providers/PaymentHelper.dart';
-import 'package:foodybuddy/Providers/orderProvider.dart';
-import 'package:foodybuddy/Providers/reviewCart.dart';
 import 'package:foodybuddy/Views/Mainpage.dart';
 import 'package:foodybuddy/Views/SplashScreen.dart';
 import 'package:foodybuddy/Views/auth_screen.dart';
 import 'package:foodybuddy/Views/verify_screen.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'Helpers/Header.dart';
-import 'Helpers/NavBar.dart';
-import 'Helpers/Middle.dart';
-import 'Services/ManageData.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,20 +35,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        //                 ChangeNotifierProvider<OrderProvider>(
-        //   create: (context) => OrderProvider(),
-        // ),
-        //         ChangeNotifierProvider<ReviewCartProvider>(
-        //   create: (context) => ReviewCartProvider(),
-        // ),
-        ChangeNotifierProvider.value(value: OrderProvider()),
-        ChangeNotifierProvider.value(value: ReviewCartProvider()),
-        ChangeNotifierProvider.value(value: PaymentHelper()),
-        ChangeNotifierProvider.value(value: Calculations()),
-        ChangeNotifierProvider.value(value: Header()),
-        ChangeNotifierProvider.value(value: MiddleHelpers()),
-        ChangeNotifierProvider.value(value: ManageData()),
-        ChangeNotifierProvider.value(value: NavBar()),
+        ChangeNotifierProvider.value(value: AdminDetailsHelpers()),
         ChangeNotifierProvider.value(value: AuthProvider()),
       ],
       child: GetMaterialApp(
@@ -62,31 +43,13 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           visualDensity: VisualDensity.adaptivePlatformDensity,
-              primaryColor:  Color(0xFFF06623),
-  //             splashColor: Color(0xFFF06623),
-  //             hintColor:Color(0xFFF06623),
-  //             focusColor: Color(0xFFF06623),
-  //             highlightColor: Color(0xFFF06623),
-  //             textSelectionColor: Color(0xFFF06623),
-  //             textSelectionHandleColor:Color(0xFFF06623),
-  //             accentColor:Color(0xFFF06623),
-  //              primaryColorDark:Color(0xFFF06623),
-  //  hoverColor:Color(0xFFF06623),
-  //  shadowColor:Color(0xFFF06623),
-  //  canvasColor:Color(0xFFF06623),
-  //  scaffoldBackgroundColor:Color(0xFFF06623),
-  //  bottomAppBarColor:Color(0xFFF06623),
-  //  cardColor:Color(0xFFF06623),
-  //  dividerColor:Color(0xFFF06623),
-  //  selectedRowColor:Color(0xFFF06623),
-  //  unselectedWidgetColor:Color(0xFFF06623),
-  //  disabledColor:Color(0xFFF06623),
         ),
         home: SplashScreen(),
         routes: {
           VerifyScreen.routeArgs: (ctx) => VerifyScreen(),
           Mainscreen.routeArgs: (ctx) => Mainscreen(),
-          AuthScreen.routeArgs: (ctx) => AuthScreen()
+          AuthScreen.routeArgs: (ctx) => AuthScreen(),
+                    AdminHomePage.routeArgs: (ctx) => AdminHomePage()
         },
       ),
     );

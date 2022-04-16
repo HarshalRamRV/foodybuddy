@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:foodybuddy/Views/Account.dart';
-import 'package:foodybuddy/Views/Homepage.dart';
-import 'package:foodybuddy/Views/Notifications.dart';
-import 'package:foodybuddy/Views/ReviewCart.dart';
-import 'package:foodybuddy/Views/Search.dart';
-import 'package:foodybuddy/Views/paymentSummary/paymesntSummary.dart';
+import 'package:foodybuddy/Adminpanel/AdminHomepage.dart';
 
 class TabNavigatorRoutes {
   static const String root = '/';
@@ -20,15 +15,15 @@ class TabNavigator extends StatelessWidget {
   Widget build(BuildContext context) {
     late Widget child;
     if (tabItem == "Page1")
-      child = Homescreen();
+      child = AdminHomePage();
     else if (tabItem == "Page2")
-      child = Search();
+      child = AdminHomePage();
     else if (tabItem == "Page3") 
-      child = PaymentSummary();
+      child = AdminHomePage();
     else if (tabItem == "Page4")
-      child = Notifications();
+      child = AdminHomePage();
     else if (tabItem == "Page5") 
-      child = Account();
+      child = AdminHomePage();
       
 
     return Navigator(

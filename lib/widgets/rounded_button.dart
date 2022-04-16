@@ -3,18 +3,17 @@ import 'package:flutter/material.dart';
 class RoundedButton extends StatelessWidget {
   final title;
   final VoidCallback onPressed;
-  final  double maxwidth;
-  final  double minwidth;
+  final maxwidth;
+  final minwidth;
   RoundedButton({@required this.title, required this.onPressed, required this.maxwidth,required this.minwidth});
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(6),
+      padding: EdgeInsets.all(10),
       child: ElevatedButton(
         style: ButtonStyle(
-          // padding:MaterialStateProperty.all(EdgeInsets.zero),
-            minimumSize: MaterialStateProperty.all(Size(minwidth , 50)),
-            maximumSize: MaterialStateProperty.all(Size(maxwidth, 50)),
+            minimumSize: MaterialStateProperty.all(Size(double.parse("$minwidth") , 50)),
+            maximumSize: MaterialStateProperty.all(Size(double.parse("$maxwidth"), 50)),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                 RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8.0),
