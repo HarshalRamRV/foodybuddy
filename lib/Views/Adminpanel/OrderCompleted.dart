@@ -4,46 +4,37 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:foodybuddy/Providers/orderProvider.dart';
 import 'package:foodybuddy/Services/AdminDetailsHelpers.dart';
 import 'package:foodybuddy/Views/Adminpanel/AdminHomepage.dart';
-import 'package:foodybuddy/Views/Mainpage.dart';
+import 'package:foodybuddy/Views/Adminpanel/OrderStatus.dart';
 import 'package:foodybuddy/widgets/ItemWidget.dart';
+import 'package:foodybuddy/widgets/rounded_button.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
-class OrderStatus extends StatefulWidget {
+class OrderCompleted extends StatelessWidget {
   final String orderNo;
   final QueryDocumentSnapshot queryDocumentSnapshot;
-  OrderStatus({required this.orderNo, required this.queryDocumentSnapshot});
+  OrderCompleted({required this.orderNo, required this.queryDocumentSnapshot});
 
-  @override
-  State<OrderStatus> createState() => _OrderStatusState();
-}
-
-class _OrderStatusState extends State<OrderStatus> {
   @override
   Widget build(BuildContext context) {
     AdminDetailsHelpers adminDetailsHelpers =
         Provider.of(context, listen: false);
     OrderProvider orderProvider = Provider.of(context, listen: false);
-    orderProvider.getOrderData(widget.orderNo.toString());
-    orderProvider.setOrderStatus(widget.orderNo.toString());
-    adminDetailsHelpers.setOrderConfirmationData(widget.orderNo.toString());
-    orderProvider.setFee(widget.orderNo.toString());
-    orderProvider.setTotalNoFee(widget.orderNo.toString());
+    orderProvider.getOrderData(orderNo.toString());
+    orderProvider.setOrderStatus(orderNo.toString());
+    adminDetailsHelpers.setOrderConfirmationData(orderNo.toString());
+    orderProvider.setFee(orderNo.toString());
+    orderProvider.setTotalNoFee(orderNo.toString());
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: floatingActionButton(context, widget.orderNo),
+      floatingActionButton:
+          floatingActionButton(context, orderNo, queryDocumentSnapshot),
       appBar: AppBar(
         foregroundColor: Color(0xFFF06623),
         centerTitle: true,
-        leading: new IconButton(
-            icon: new Icon(Icons.arrow_back, color: Color(0xFFF06623)),
-            onPressed: () => {
-                  Navigator.of(context, rootNavigator: true)
-                      .pushReplacementNamed(Mainscreen.routeArgs)
-                }),
         backgroundColor: Colors.white,
         title: Text(
-          "Order No ${widget.orderNo}",
+          "Order No ${orderNo}",
           style: TextStyle(color: Colors.black, fontSize: 18),
         ),
       ),
@@ -52,7 +43,7 @@ class _OrderStatusState extends State<OrderStatus> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            orderInfo(context, widget.queryDocumentSnapshot),
+            orderInfo(context, queryDocumentSnapshot),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: ConstrainedBox(
@@ -61,7 +52,7 @@ class _OrderStatusState extends State<OrderStatus> {
                 child: FutureBuilder(
                   future:
                       Provider.of<AdminDetailsHelpers>(context, listen: false)
-                          .fetchDataItems(widget.orderNo),
+                          .fetchDataItems(orderNo),
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return Center(
@@ -176,56 +167,31 @@ Widget orderInfo(BuildContext context, queryDocumentSnapshot) {
   );
 }
 
-Widget floatingActionButton(BuildContext context, orderNo) {
-  bool orderStatus = true;
-  return FloatingActionButton(
-    backgroundColor: Color(0xFFF06623),
-    child: Icon(FontAwesomeIcons.check, color: Colors.white),
+Widget floatingActionButton(
+    BuildContext context, orderNo, queryDocumentSnapshot) {
+  AdminDetailsHelpers adminDetailsHelpers = Provider.of(context, listen: false);
+  bool orderConfirmation = true;
+
+  return RoundedButton(
+    title: "Confirm Order",
+    maxwidth: 1000,
+    minwidth: 400,
     onPressed: () {
-      Provider.of<AdminDetailsHelpers>(context, listen: false)
-          .setOrderStatus(context, orderNo, orderStatus);
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => Scaffold(
-            appBar: AppBar(
-              foregroundColor: Color(0xFFF06623),
-              backgroundColor: Colors.white,
-              centerTitle: true,
-              title: Text(
-                "Order Status ",
-                style: TextStyle(color: Colors.black),
-              ),
-              leading: new IconButton(
-                  icon: new Icon(Icons.arrow_back, color: Color(0xFFF06623)),
-                  onPressed: () => {
-                        Navigator.of(context, rootNavigator: true)
-                            .pushReplacementNamed(Mainscreen.routeArgs)
-                      }),
-            ),
-            body: Center(
-              child: Column(children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: Text(
-                    "The Order is Completed",
-                    softWrap: true,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.normal,
+      adminDetailsHelpers
+          .setOrderConfirmationTrue(context, orderNo, orderConfirmation)
+          .whenComplete(() => {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => OrderStatus(
+                      orderNo:
+                          (queryDocumentSnapshot.data() as dynamic)['orderNo']
+                              .toString(),
+                      queryDocumentSnapshot: queryDocumentSnapshot,
                     ),
                   ),
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height - 550,
-                  child: Lottie.asset('assets/58046-check-mark.json',
-                      repeat: false),
-                ),
-              ]),
-            ),
-          ),
-        ),
-      );
+                )
+            }
+          );
     },
   );
 }

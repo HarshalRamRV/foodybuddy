@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodybuddy/Views/Adminpanel/AdminHomepage.dart';
+import 'package:foodybuddy/Views/Menu.dart';
 
 class TabNavigatorRoutes {
   static const String root = '/';
@@ -19,7 +20,7 @@ class TabNavigator extends StatelessWidget {
     else if (tabItem == "Page2")
       child = AdminHomePage();
     else if (tabItem == "Page3") 
-      child = AdminHomePage();
+      child = Menu();
     else if (tabItem == "Page4")
       child = AdminHomePage();
     else if (tabItem == "Page5") 

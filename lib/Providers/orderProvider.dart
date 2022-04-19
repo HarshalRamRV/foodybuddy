@@ -105,4 +105,12 @@ class OrderProvider with ChangeNotifier {
   double? get getTotalNoFee {
     return totalNoFee;
   }
+  Future setOrderConfirmationTrue(
+      BuildContext context, dynamic orderId, dynamic orderConfirmation) async {
+    return FirebaseFirestore.instance
+        .collection('Orders')
+        .doc(orderId)
+        .update({'orderConfirmation': orderConfirmation});
+  }
+
 }

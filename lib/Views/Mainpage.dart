@@ -76,9 +76,9 @@ class _MainscreenState extends State<Mainscreen> {
                 label: 'Home',
               ),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.search), label: 'Search'),
+                  icon: Icon(Icons.add_circle_rounded), label: 'Add Item'),
                                 BottomNavigationBarItem(
-                  icon: Icon(Icons.shopping_cart), label: 'Cart'),
+                  icon: Icon(Icons.notes), label: 'Menu'),
               BottomNavigationBarItem(
                   icon: Icon(Icons.notifications),
                   label: 'Notifications'),

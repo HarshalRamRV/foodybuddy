@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:foodybuddy/Views/Adminpanel/AdminHomepage.dart';
+import 'package:foodybuddy/Views/Mainpage.dart';
 import 'package:foodybuddy/Views/auth_screen.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -30,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
           () => Navigator.pushReplacement(
               context,
               PageTransition(
-                  child: userUid == null ? AuthScreen() : AdminHomePage(),
+                  child: userUid == null ? AuthScreen() : Mainscreen(),
                   type: PageTransitionType.leftToRightWithFade)));
     });
     super.initState();

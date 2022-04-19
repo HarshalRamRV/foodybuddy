@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:foodybuddy/Views/Adminpanel/OrderPage.dart';
+import 'package:foodybuddy/Services/AdminDetailsHelpers.dart';
+import 'package:foodybuddy/Views/Adminpanel/OrderCompleted.dart';
 import 'package:foodybuddy/Views/Adminpanel/OrderStatus.dart';
 import 'package:foodybuddy/Views/auth_screen.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AdminHomePage extends StatefulWidget {
@@ -20,7 +22,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
     return Scaffold(
       backgroundColor: Color(0xfcfcfcfc),
       appBar: AppBar(
-        automaticallyImplyLeading :false,
+        automaticallyImplyLeading: false,
         actions: [
           IconButton(
             icon: Icon(EvaIcons.logOutOutline),
@@ -52,38 +54,11 @@ class _AdminHomePageState extends State<AdminHomePage> {
         ),
       ),
     );
-    // Scaffold(
-    //   appBar: AppBar(
-    //     actions: [
-    //       IconButton(
-    //         icon: Icon(EvaIcons.logOutOutline),
-    //         onPressed: () async {
-    //           SharedPreferences sharedPreferences =
-    //               await SharedPreferences.getInstance();
-    //           sharedPreferences.remove('uid');
-    //           sharedPreferences.remove('phoneNumber');
-    //           Navigator.of(context, rootNavigator: true)
-    //               .pushReplacementNamed(AuthScreen.routeArgs);
-    //         },
-    //       )
-    //     ],
-    //     centerTitle: true,
-    //     title: Text('Orders',
-    //         style: TextStyle(
-    //             color: Colors.white,
-    //             fontSize: 28.0,
-    //             fontWeight: FontWeight.bold)),
-    //   ),
-    //   body: Stack(
-    //     children: [
-    //       getdata(context),
-    //     ],
-    //   ),
-    // );
   }
 }
 
 Widget getdata(BuildContext context) {
+  AdminDetailsHelpers adminDetailsHelpers = Provider.of(context, listen: true);
   return Padding(
     padding: const EdgeInsets.all(8.0),
     child: ConstrainedBox(
@@ -117,15 +92,30 @@ Widget getdata(BuildContext context) {
                       decoration: BoxDecoration(color: Colors.white),
                       child: ListTile(
                         onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => OrderStatus(
-                                orderNo: (queryDocumentSnapshot.data()
-                                        as dynamic)['orderNo']
-                                    .toString(),
-                              ),
-                            ),
-                          );
+                          (queryDocumentSnapshot.data()
+                                              as dynamic)['orderConfirmation'] == false
+                              ? Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => OrderCompleted(
+                                      orderNo: (queryDocumentSnapshot.data()
+                                              as dynamic)['orderNo']
+                                          .toString(),
+                                      queryDocumentSnapshot:
+                                          queryDocumentSnapshot,
+                                    ),
+                                  ),
+                                )
+                              : Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => OrderStatus(
+                                      orderNo: (queryDocumentSnapshot.data()
+                                              as dynamic)['orderNo']
+                                          .toString(),
+                                      queryDocumentSnapshot:
+                                          queryDocumentSnapshot,
+                                    ),
+                                  ),
+                                );
                         },
                         subtitle: Row(
                           children: [

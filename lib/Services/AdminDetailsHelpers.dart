@@ -44,9 +44,9 @@ class AdminDetailsHelpers with ChangeNotifier {
         .doc(orderId)
         .update({'orderStatus': orderStatus});
   }
-    Future fetchCatData(String collection, String category) async {
+    Future fetchMenuData(String collection) async {
     QuerySnapshot querySnapshot =
-        await FirebaseFirestore.instance.collection(collection).where("category",isEqualTo:category.toString() ).get();
+        await FirebaseFirestore.instance.collection(collection).get();
     return querySnapshot.docs;
   }
     Future setOrderConfirmationData(orderNo) async {
@@ -70,4 +70,5 @@ Future setOrderConfirmationTrue(
   bool? get getOrderConfirmation {
     return orderConfirmation;
   }
+  
 }
