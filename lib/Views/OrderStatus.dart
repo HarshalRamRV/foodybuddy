@@ -24,8 +24,6 @@ class OrderStatus extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Provider.of<OrderProvider>(context, listen: false).getOrderNo(context,orderNo.toString());
-    // Provider.of<OrderProvider>(context, listen: false).getOrderSat();
     Provider.of<PaymentHelper>(context, listen: false).setOrderNumber();
     OrderProvider orderProvider = Provider.of(context);
     orderProvider.getOrderData(orderNo.toString());
@@ -33,7 +31,6 @@ class OrderStatus extends StatelessWidget {
     orderProvider.setOrderConfirmation(orderNo.toString());
     orderProvider.setFee(orderNo.toString());
     orderProvider.setTotalNoFee(orderNo.toString());
-    double totalPrice = orderProvider.getTotalPrice();
     return Scaffold(
       bottomNavigationBar: ListTile(
           title: RoundedButton(
@@ -204,22 +201,6 @@ class OrderStatus extends StatelessWidget {
                           ),
                         ),
                       ),
-                      // ListTile(
-                      //   minVerticalPadding: 5,
-                      //   leading: Text(
-                      //     "Order Status",
-                      //     style: TextStyle(color: Colors.grey[600]),
-                      //   ),
-                      //   trailing: Text(
-                      //     orderProvider.getOrderStatus == false
-                      //         ? "Your Order is getting ready"
-                      //         : "Your order is ready",
-                      //     softWrap: true,
-                      //     style: TextStyle(
-                      //       fontWeight: FontWeight.bold,
-                      //     ),
-                      //   ),
-                      // ),
                     ]);
                   })),
     );

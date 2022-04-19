@@ -94,7 +94,7 @@ class ItemWidget extends StatelessWidget {
                         child: Count(
                           productName: itemName,
                           productImage: img,
-                          productPrice: int.parse(price),
+                          productPrice: int.parse(price.toString()),
                           productCategory: category,
                         ),
                       ),

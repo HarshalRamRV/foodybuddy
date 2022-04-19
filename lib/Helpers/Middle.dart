@@ -137,9 +137,9 @@ class MiddleHelpers extends ChangeNotifier {
                 itemCount: snapshot.data.length,
                 itemBuilder: (BuildContext context, int index) {
                   return ItemWidget(
-                        itemName: snapshot.data[index].data()['name'],
-                        img: snapshot.data[index].data()['image'],
-                        category: snapshot.data[index].data()['category'],
+                        itemName: snapshot.data[index].data()['name'].toString(),
+                        img: snapshot.data[index].data()['image'].toString(),
+                        category: snapshot.data[index].data()['category'].toString(),
                         price: snapshot.data[index].data()['price'].toString(),
                       );
                 },

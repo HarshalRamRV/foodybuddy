@@ -11,14 +11,14 @@ class DataController extends GetxController {
 
   Future queryData(String queryString) {
     return FirebaseFirestore.instance
-        .collection('Popular Items')
-        .where('name', isGreaterThanOrEqualTo: queryString)
+        .collection('MainMenu')
+        .where('name', isGreaterThanOrEqualTo: queryString.toLowerCase())
         .get();
   }
     Future querySearch(String queryString) {
     return FirebaseFirestore.instance
-        .collection('myOders')
-        .where('name', isGreaterThanOrEqualTo: queryString)
+        .collection('MainMenu')
+        .where('name', isGreaterThanOrEqualTo: queryString.capitalizeFirst!)
         .get();
   }
 }

@@ -34,7 +34,7 @@ class CatogoriesState extends State<Catogories> {
             SizedBox(
               height: 2.0,
             ),
-            MiddleHelpers().getcatpage(context, 'MenuItems', widget.category)
+            MiddleHelpers().getcatpage(context, 'MainMenu', widget.category)
           ],
         ),
       ),
