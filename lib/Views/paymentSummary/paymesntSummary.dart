@@ -3,12 +3,16 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:foodybuddy/Models/reviewCartModal.dart';
 import 'package:foodybuddy/Providers/PaymentHelper.dart';
 import 'package:foodybuddy/Providers/reviewCart.dart';
+import 'package:foodybuddy/Views/Mainpage.dart';
 import 'package:foodybuddy/Views/OrderStatus.dart';
 import 'package:foodybuddy/Views/SplashScreen.dart';
 import 'package:foodybuddy/Views/paymentSummary/orderItem.dart';
+import 'package:foodybuddy/widgets/ItemWidget.dart';
 import 'package:foodybuddy/widgets/rounded_button.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
@@ -167,7 +171,14 @@ class _PaymentSummaryState extends State<PaymentSummary> {
                   minwidth: 200)),
       body: reviewCartProvider.getReviewCartDataList.isEmpty
           ? Center(
-              child: Text("NO DATA"),
+              child: Padding(
+                padding: const EdgeInsets.all(38.0),
+                child: GestureDetector(
+                  onTap: () {
+                Navigator.of(context, rootNavigator: true)
+                    .pushReplacementNamed(Mainscreen.routeArgs);                  },
+                  child: Lottie.asset('assets/lf30_editor_w5sweoxp.json',repeat: false)),
+              ),
             )
           : Padding(
               padding: const EdgeInsets.only(top: 10),
@@ -176,19 +187,45 @@ class _PaymentSummaryState extends State<PaymentSummary> {
                 itemBuilder: (context, index) {
                   return Column(
                     children: [
-                      ExpansionTile(
-                        initiallyExpanded: true,
-                        textColor: Color(0xFFF06623),
-                        iconColor: Color(0xFFF06623),
-                        children:
-                            reviewCartProvider.getReviewCartDataList.map((e) {
-                          return OrderItem(
-                            e: e,
-                          );
-                        }).toList(),
-                        title: Text(
-                            "Order Items ${reviewCartProvider.getReviewCartDataList.length}"),
+                      // ExpansionTile(
+                      //   initiallyExpanded: true,
+                      //   textColor: Color(0xFFF06623),
+                      //   iconColor: Color(0xFFF06623),
+                      //   children:
+                      //       reviewCartProvider.getReviewCartDataList.map((e) {
+                      //     return OrderItem(
+                      //       e: e,
+                      //     );
+                      //   }).toList(),
+                      //   title: Text(
+                      //       "Order Items ${reviewCartProvider.getReviewCartDataList.length}"),
+                      // ),
+                      Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListView.builder(
+                padding: EdgeInsets.zero,
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: reviewCartProvider.getReviewCartDataList.length,
+                itemBuilder: (context, index) {
+                  ReviewCartModel data =
+                      reviewCartProvider.getReviewCartDataList[index];
+                  return Column(
+                    children: [
+                      SizedBox(
+                        height: 10,
                       ),
+                      ItemWidget(
+                        img: data.image,
+                        itemName: data.name,
+                        price: data.price.toString(),
+                        category: data.category,
+                      ),
+                    ],
+                  );
+                },
+              ),
+            ),
                       ListTile(
                         minVerticalPadding: 5,
                         leading: Text(

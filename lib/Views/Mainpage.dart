@@ -3,10 +3,14 @@
 import 'package:flutter/material.dart';
 import 'package:foodybuddy/Navigation/tab_navigator.dart';
 import 'package:foodybuddy/Providers/reviewCart.dart';
+import 'package:foodybuddy/widgets/rounded_button.dart';
 import 'package:provider/provider.dart';
 
 class Mainscreen extends StatefulWidget {
+  final pageNo;
   static const routeArgs = '/main-screen';
+
+  const Mainscreen({this.pageNo});
 
   @override
   _MainscreenState createState() => _MainscreenState();
@@ -58,37 +62,58 @@ class _MainscreenState extends State<Mainscreen> {
             _buildOffstageNavigator("Page2"),
             _buildOffstageNavigator("Page3"),
             _buildOffstageNavigator("Page4"),
-            _buildOffstageNavigator("Page5"),
+            // _buildOffstageNavigator("Page5"),
           ]),
-          bottomNavigationBar: BottomNavigationBar(
-            backgroundColor: Colors.white,
-            onTap: (int index) {
-              _selectTab(pageKeys[index], index);
-            },
-            selectedIconTheme: IconThemeData(color: Color(0xffF06623)),
-            iconSize: 26.0,
-            unselectedIconTheme: IconThemeData(color: Colors.grey[350]),
-            fixedColor: Color(0xffF06623),
-            unselectedLabelStyle: TextStyle(color: Colors.grey[300]),
-            selectedFontSize: 12.5,
-            unselectedFontSize: 12.0,
-            currentIndex: _selectedIndex,
-            type: BottomNavigationBarType.fixed,
-            items: [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home',
+          bottomNavigationBar: Stack(
+            children: 
+              [
+              // ListTile(
+              // title: Text("Total Amount"),
+              // subtitle: Text(
+              //   "Go to Cart",
+              //   style: TextStyle(
+              //     color: Colors.green[900],
+              //     fontWeight: FontWeight.bold,
+              //     fontSize: 17,
+              //   ),
+              // ),
+              // trailing: RoundedButton(
+              //     title: "Go to Cart",
+              //     onPressed: () async {
+
+              //     },
+              //     maxwidth: 250,
+              //     minwidth: 200)),
+                BottomNavigationBar(
+                backgroundColor: Colors.white,
+                onTap: (int index) {
+                  _selectTab(pageKeys[index], index);
+                },
+                selectedIconTheme: IconThemeData(color: Color(0xffF06623)),
+                iconSize: 26.0,
+                unselectedIconTheme: IconThemeData(color: Colors.grey[350]),
+                fixedColor: Color(0xffF06623),
+                unselectedLabelStyle: TextStyle(color: Colors.grey[300]),
+                selectedFontSize: 12.5,
+                unselectedFontSize: 12.0,
+                currentIndex: _selectedIndex,
+                type: BottomNavigationBarType.fixed,
+                items: [
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.home),
+                    label: 'Home',
+                  ),
+                  // BottomNavigationBarItem(
+                  //     icon: Icon(Icons.search), label: 'Search'),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.shopping_cart), label: 'Cart'),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.notifications), label: 'Orders'),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.account_circle), label: 'Account'),
+                ],
               ),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.search), label: 'Search'),
-                                BottomNavigationBarItem(
-                  icon: Icon(Icons.shopping_cart), label: 'Cart'),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.notifications),
-                  label: 'Notifications'),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.account_circle), label: 'Account'),
-                  
+
             ],
           ),
         ));

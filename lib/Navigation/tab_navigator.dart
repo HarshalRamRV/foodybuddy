@@ -19,15 +19,23 @@ class TabNavigator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     late Widget child;
+    // if (tabItem == "Page1")
+    //   child = Homescreen();
+    // else if (tabItem == "Page2")
+    //   child = Search();
+    // else if (tabItem == "Page3") 
+    //   child = PaymentSummary();
+    // else if (tabItem == "Page4")
+    //   child = Notifications();
+    // else if (tabItem == "Page5") 
+    //   child = Account();
     if (tabItem == "Page1")
       child = Homescreen();
-    else if (tabItem == "Page2")
-      child = Search();
-    else if (tabItem == "Page3") 
+    else if (tabItem == "Page2") 
       child = PaymentSummary();
-    else if (tabItem == "Page4")
+    else if (tabItem == "Page3")
       child = Notifications();
-    else if (tabItem == "Page5") 
+    else if (tabItem == "Page4") 
       child = Account();
       
 

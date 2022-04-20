@@ -1,5 +1,5 @@
 name: foodybuddy
-description: food 
+description: fast food e-commerce app
 
 publish_to: 'none' 
 version: 1.0.0+1
@@ -54,6 +54,7 @@ flutter:
     - assets/58046-check-mark.json
     - assets/21421-waiting.json
     - assets/99603-yellow-dots-flicker.json
+    - assets/lf30_editor_w5sweoxp.json
 
 
 
