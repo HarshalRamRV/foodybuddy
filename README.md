@@ -1,4 +1,4 @@
-# foodybuddy
+# fb_business
 
 A new Flutter project.
 

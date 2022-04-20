@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:foodybuddy/Services/AdminDetailsHelpers.dart';
-import 'package:foodybuddy/Views/Adminpanel/OrderCompleted.dart';
-import 'package:foodybuddy/Views/Adminpanel/OrderStatus.dart';
-import 'package:foodybuddy/Views/auth_screen.dart';
+import 'package:fb_business/Services/AdminDetailsHelpers.dart';
+import 'package:fb_business/Views/Adminpanel/OrderCompleted.dart';
+import 'package:fb_business/Views/Adminpanel/OrderStatus.dart';
+import 'package:fb_business/Views/auth_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -93,7 +93,8 @@ Widget getdata(BuildContext context) {
                       child: ListTile(
                         onTap: () {
                           (queryDocumentSnapshot.data()
-                                              as dynamic)['orderConfirmation'] == false
+                                      as dynamic)['orderConfirmation'] ==
+                                  false
                               ? Navigator.of(context).push(
                                   MaterialPageRoute(
                                     builder: (context) => OrderCompleted(

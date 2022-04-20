@@ -1,6 +1,6 @@
 {
-    "name": "foodybuddy",
-    "short_name": "foodybuddy",
+    "name": "fb_business",
+    "short_name": "fb_business",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

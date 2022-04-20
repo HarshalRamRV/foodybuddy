@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.foodybuddy">
+    package="com.example.fb_business">
     <queries>
         <intent>
             <action android:name="android.intent.action.DIAL" />
@@ -8,7 +8,7 @@
     </queries>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> 
    <application
-        android:label="foodybuddy"
+        android:label="fb business"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

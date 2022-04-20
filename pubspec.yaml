@@ -1,5 +1,5 @@
-name: foodybuddy
-description: food 
+name: fb_business
+description: foodbuddy admin app
 
 publish_to: 'none' 
 version: 1.0.0+1
@@ -41,8 +41,6 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/foodanimation.json
-    - assets/AFoodyBuddyLogo.png
-    - assets/BFoodyBuddyLogo.png
     - assets/startPageBG.png
     - assets/58046-check-mark.json
 

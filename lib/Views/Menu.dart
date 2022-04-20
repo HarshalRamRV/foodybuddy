@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:foodybuddy/Services/AdminDetailsHelpers.dart';
-import 'package:foodybuddy/widgets/ItemWidget.dart';
+import 'package:fb_business/Services/AdminDetailsHelpers.dart';
+import 'package:fb_business/widgets/ItemWidget.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +18,7 @@ class MenuState extends State<Menu> {
     return Scaffold(
       backgroundColor: Color(0xfcfcfcfc),
       appBar: AppBar(
-                foregroundColor: Color(0xFFF06623),
+        foregroundColor: Color(0xFFF06623),
         centerTitle: true,
         backgroundColor: Colors.white,
         title: Text(
@@ -43,36 +43,35 @@ class MenuState extends State<Menu> {
 }
 
 Widget getcatpage(BuildContext context, String collection) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        child: FutureBuilder(
-          future: Provider.of<AdminDetailsHelpers>(context, listen: false)
-              .fetchMenuData(collection),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
-                child: Lottie.asset('assets/foodanimation.json'),
-              );
-            } else {
-              return ListView.builder(
-                padding: EdgeInsets.zero,
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: snapshot.data.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return ItemWidget(
-                        itemName: snapshot.data[index].data()['name'].toString(),
-                        img: snapshot.data[index].data()['image'].toString(),
-                        category: snapshot.data[index].data()['category'].toString(),
-                        price: snapshot.data[index].data()['price'].toString(),
-                      );
-                },
-              );
-            }
-          },
-        ),
+  return Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: Container(
+      child: FutureBuilder(
+        future: Provider.of<AdminDetailsHelpers>(context, listen: false)
+            .fetchMenuData(collection),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: Lottie.asset('assets/foodanimation.json'),
+            );
+          } else {
+            return ListView.builder(
+              padding: EdgeInsets.zero,
+              physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: snapshot.data.length,
+              itemBuilder: (BuildContext context, int index) {
+                return ItemWidget(
+                  itemName: snapshot.data[index].data()['name'].toString(),
+                  img: snapshot.data[index].data()['image'].toString(),
+                  category: snapshot.data[index].data()['category'].toString(),
+                  price: snapshot.data[index].data()['price'].toString(),
+                );
+              },
+            );
+          }
+        },
       ),
-    );
-  }
-
+    ),
+  );
+}

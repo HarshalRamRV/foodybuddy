@@ -1,4 +1,4 @@
-package com.example.foodybuddy
+package com.example.fb_business
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,13 +1,13 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:foodybuddy/Providers/orderProvider.dart';
-import 'package:foodybuddy/Views/Adminpanel/AdminHomepage.dart';
-import 'package:foodybuddy/Services/AdminDetailsHelpers.dart';
-import 'package:foodybuddy/Providers/auth_provider.dart';
-import 'package:foodybuddy/Views/Mainpage.dart';
-import 'package:foodybuddy/Views/SplashScreen.dart';
-import 'package:foodybuddy/Views/auth_screen.dart';
-import 'package:foodybuddy/Views/verify_screen.dart';
+import 'package:fb_business/Providers/orderProvider.dart';
+import 'package:fb_business/Views/Adminpanel/AdminHomepage.dart';
+import 'package:fb_business/Services/AdminDetailsHelpers.dart';
+import 'package:fb_business/Providers/auth_provider.dart';
+import 'package:fb_business/Views/Mainpage.dart';
+import 'package:fb_business/Views/SplashScreen.dart';
+import 'package:fb_business/Views/auth_screen.dart';
+import 'package:fb_business/Views/verify_screen.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
@@ -16,9 +16,9 @@ void main() async {
   await Firebase.initializeApp(
       // options: FirebaseOptions(
       //     apiKey: "AIzaSyABXY4KGT6NsFj5q_IJzqNKvCJZUWnCslI",
-      //     authDomain: "foodybuddy-51183.firebaseapp.com",
-      //     projectId: "foodybuddy-51183",
-      //     storageBucket: "foodybuddy-51183.appspot.com",
+      //     authDomain: "fb_business-51183.firebaseapp.com",
+      //     projectId: "fb_business-51183",
+      //     storageBucket: "fb_business-51183.appspot.com",
       //     messagingSenderId: "724651269084",
       //     appId: "1:724651269084:web:42cd9aa100ae14b5530d19" // Your projectId
       //     ),
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider.value(value: AuthProvider()),
       ],
       child: GetMaterialApp(
-        title: 'FoodyBuddy',
+        title: 'fb_business',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           visualDensity: VisualDensity.adaptivePlatformDensity,

@@ -2,10 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:foodybuddy/Views/Adminpanel/AdminHomepage.dart';
-import 'package:foodybuddy/Providers/auth_provider.dart';
-import 'package:foodybuddy/widgets/rounded_button.dart';
-import 'package:foodybuddy/widgets/user_text_field.dart';
+import 'package:fb_business/Views/Adminpanel/AdminHomepage.dart';
+import 'package:fb_business/Providers/auth_provider.dart';
+import 'package:fb_business/widgets/rounded_button.dart';
+import 'package:fb_business/widgets/user_text_field.dart';
 import 'package:provider/provider.dart';
 
 class VerifyScreen extends StatelessWidget {
@@ -96,7 +96,8 @@ class VerifyScreen extends StatelessWidget {
                   titleLabel: 'Enter 6 digit Code',
                   maxLength: 6,
                   controller: controller,
-                  inputType: TextInputType.phone, icon: null,
+                  inputType: TextInputType.phone,
+                  icon: null,
                 ),
                 SizedBox(
                   height: 40.0,
@@ -107,7 +108,9 @@ class VerifyScreen extends StatelessWidget {
                     title: 'Verify Code',
                     onPressed: () {
                       verifyOTP(context);
-                    }, maxwidth: 1000.0, minwidth: 400.0,
+                    },
+                    maxwidth: 1000.0,
+                    minwidth: 400.0,
                   ),
                 ),
                 Align(

@@ -1,7 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
-import 'package:foodybuddy/Navigation/tab_navigator.dart';
+import 'package:fb_business/Navigation/tab_navigator.dart';
 
 class Mainscreen extends StatefulWidget {
   static const routeArgs = '/main-screen';
@@ -77,11 +77,9 @@ class _MainscreenState extends State<Mainscreen> {
               ),
               BottomNavigationBarItem(
                   icon: Icon(Icons.add_circle_rounded), label: 'Add Item'),
-                                BottomNavigationBarItem(
-                  icon: Icon(Icons.notes), label: 'Menu'),
+              BottomNavigationBarItem(icon: Icon(Icons.notes), label: 'Menu'),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.notifications),
-                  label: 'Notifications'),
+                  icon: Icon(Icons.notifications), label: 'Notifications'),
               BottomNavigationBarItem(
                   icon: Icon(Icons.account_circle), label: 'Account'),
             ],

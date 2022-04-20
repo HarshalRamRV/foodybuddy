@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:foodybuddy/Providers/orderProvider.dart';
-import 'package:foodybuddy/Services/AdminDetailsHelpers.dart';
-import 'package:foodybuddy/Views/Adminpanel/AdminHomepage.dart';
-import 'package:foodybuddy/Views/Mainpage.dart';
-import 'package:foodybuddy/widgets/ItemWidget.dart';
+import 'package:fb_business/Providers/orderProvider.dart';
+import 'package:fb_business/Services/AdminDetailsHelpers.dart';
+import 'package:fb_business/Views/Adminpanel/AdminHomepage.dart';
+import 'package:fb_business/Views/Mainpage.dart';
+import 'package:fb_business/widgets/ItemWidget.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 

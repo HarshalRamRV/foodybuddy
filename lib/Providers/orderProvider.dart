@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:foodybuddy/Models/reviewCartModal.dart';
+import 'package:fb_business/Models/reviewCartModal.dart';
 
 class OrderProvider with ChangeNotifier {
   bool? orderConfirmation = false;
@@ -105,6 +105,7 @@ class OrderProvider with ChangeNotifier {
   double? get getTotalNoFee {
     return totalNoFee;
   }
+
   Future setOrderConfirmationTrue(
       BuildContext context, dynamic orderId, dynamic orderConfirmation) async {
     return FirebaseFirestore.instance
@@ -112,5 +113,4 @@ class OrderProvider with ChangeNotifier {
         .doc(orderId)
         .update({'orderConfirmation': orderConfirmation});
   }
-
 }

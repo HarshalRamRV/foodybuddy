@@ -1,15 +1,15 @@
 {
   "project_info": {
     "project_number": "724651269084",
-    "project_id": "foodybuddy-51183",
-    "storage_bucket": "foodybuddy-51183.appspot.com"
+    "project_id": "fb_business-51183",
+    "storage_bucket": "fb_business-51183.appspot.com"
   },
   "client": [
     {
       "client_info": {
         "mobilesdk_app_id": "1:724651269084:android:812c1393773a068f530d19",
         "android_client_info": {
-          "package_name": "com.example.foodybuddy"
+          "package_name": "com.example.fb_business"
         }
       },
       "oauth_client": [

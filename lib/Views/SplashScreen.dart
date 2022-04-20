@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:foodybuddy/Views/Adminpanel/AdminHomepage.dart';
-import 'package:foodybuddy/Views/Mainpage.dart';
-import 'package:foodybuddy/Views/auth_screen.dart';
+import 'package:fb_business/Views/Adminpanel/AdminHomepage.dart';
+import 'package:fb_business/Views/Mainpage.dart';
+import 'package:fb_business/Views/auth_screen.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -50,7 +50,8 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Expanded(flex: 1, child: Image.asset('assets/AFoodyBuddyLogo.png')),
+            Expanded(
+                flex: 1, child: Image.asset('assets/Afb_businessLogo.png')),
           ],
         ),
       ),

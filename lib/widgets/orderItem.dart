@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:foodybuddy/Models/reviewCartModal.dart';
+import 'package:fb_business/Models/reviewCartModal.dart';
 
 class OrderItem extends StatelessWidget {
   final ReviewCartModel e;
@@ -19,7 +19,7 @@ class OrderItem extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
-              width: MediaQuery.of(context).size.width -250,
+              width: MediaQuery.of(context).size.width - 250,
               child: Text(
                 e.name,
                 softWrap: true,
