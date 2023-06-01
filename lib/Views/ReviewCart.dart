@@ -13,13 +13,13 @@ class ReviewCart extends StatelessWidget {
   late ReviewCartProvider reviewCartProvider;
   showAlertDialog(BuildContext context, ReviewCartModel delete) {
     // set up the buttons
-    Widget cancelButton = FlatButton(
+    Widget cancelButton = TextButton(
       child: Text("No"),
       onPressed: () {
         Navigator.of(context).pop();
       },
     );
-    Widget continueButton = FlatButton(
+    Widget continueButton = TextButton(
       child: Text("Yes"),
       onPressed: () {
         reviewCartProvider.reviewCartDataDelete(delete.name);

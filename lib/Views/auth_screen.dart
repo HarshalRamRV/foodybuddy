@@ -14,7 +14,7 @@ class AuthScreen extends StatelessWidget {
   String selectedCountryCode = '+91';
 
   showSnackBar(msg, color, context) {
-    Scaffold.of(context).showSnackBar(
+    ScaffoldMessenger.of(context).showSnackBar(
       new SnackBar(
         content: new Text(
           msg,
@@ -37,7 +37,7 @@ class AuthScreen extends StatelessWidget {
         title: Text('Error Occured'),
         content: Text(message),
         actions: <Widget>[
-          FlatButton(
+          TextButton(
             onPressed: () {
               Navigator.of(ctx).pop();
             },

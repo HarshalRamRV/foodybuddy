@@ -20,8 +20,6 @@ dependencies:
   eva_icons_flutter: ^3.0.2
   flutter_secure_storage: ^5.0.2
   font_awesome_flutter: ^9.2.0
-  geocoder: ^0.2.1
-  geolocator: ^8.0.3
   google_maps_flutter: ^2.1.1
   google_sign_in: ^5.2.3
   page_transition: ^2.0.4

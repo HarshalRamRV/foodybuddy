@@ -19,7 +19,6 @@ class HomescreenState extends State<Homescreen> {
         systemOverlayStyle: SystemUiOverlayStyle.dark,
         backgroundColor: Colors.black,
         toolbarHeight: 0,
-        brightness: Brightness.dark,
         elevation: 0,
       ),
       body: SingleChildScrollView(
