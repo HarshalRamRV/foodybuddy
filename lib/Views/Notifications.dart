@@ -79,7 +79,7 @@ Widget getdata(BuildContext context) {
                             ),
                           );
                         },
-                        leading: Icon(Icons.notes,size: 35.0,color: Color.fromARGB(124, 240, 103, 35),),
+                        leading: Icon(Icons.receipt_long,size: 35.0,color: Color.fromARGB(124, 240, 103, 35),),
                         title: Row(
                           children: [
                             Padding(
